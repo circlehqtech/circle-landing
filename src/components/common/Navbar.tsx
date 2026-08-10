@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MenuIcon, XIcon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { Logo } from './Logo';
 
 const LINKS = [
   { label: 'Home', href: '/' },
@@ -40,14 +41,8 @@ export function Navbar() {
         aria-label="Primary"
         className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
         
-        <Link to="/" className="group flex items-center gap-2.5">
-          <span className="relative flex h-6 w-6 items-center justify-center">
-            <span className="absolute inset-0 rounded-full border border-hq-red/70" />
-            <span className="h-2 w-2 rounded-full bg-hq-red transition-transform duration-300 group-hover:scale-150" />
-          </span>
-          <span className={`font-display text-[15px] font-semibold tracking-tight ${isLightPage ? 'text-hq-ink' : 'text-white'}`}>
-            Circle<span className="text-hq-red">HQ</span>
-          </span>
+        <Link to="/" className="group transition-transform hover:opacity-95">
+          <Logo isLightPage={isLightPage} />
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">

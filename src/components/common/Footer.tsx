@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Logo } from './Logo';
 
 const COLUMNS = [
   {
@@ -43,18 +44,8 @@ export function Footer() {
       <div className="relative mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
         <div className="grid gap-12 md:grid-cols-[1.2fr_repeat(3,minmax(0,0.6fr))]">
           <div>
-            <Link to="/" className="flex items-center gap-2.5">
-              <span className="relative flex h-6 w-6 items-center justify-center">
-                <span className="absolute inset-0 rounded-full border border-hq-red/70" />
-                <motion.span
-                  animate={{ scale: [1, 1.4, 1] }}
-                  transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-                  className="h-2 w-2 rounded-full bg-hq-red"
-                />
-              </span>
-              <span className="font-display text-[15px] font-semibold tracking-tight text-white">
-                Circle<span className="text-hq-red">HQ</span>
-              </span>
+            <Link to="/" className="inline-block transition-transform hover:opacity-95">
+              <Logo theme="dark" showTagline={true} />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-hq-mute">
               Smart AI Solutions & Workforce Capability. Built in Lagos, operating worldwide.
