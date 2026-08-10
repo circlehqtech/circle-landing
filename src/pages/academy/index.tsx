@@ -217,6 +217,8 @@ export function AcademyPage() {
             <img
               src="/academy_workshop_training.png"
               alt="Circle Academy Hands-on Corporate Workshop"
+              fetchPriority="high"
+              decoding="async"
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-hq-ink/70 via-transparent to-transparent" />

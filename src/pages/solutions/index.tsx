@@ -152,6 +152,8 @@ export function SolutionsPage() {
                   <img
                     src="/images/ai_solutions_hero.png"
                     alt="Circle AI Solutions Dashboard Interface"
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-auto object-cover rounded-2xl transform group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
 

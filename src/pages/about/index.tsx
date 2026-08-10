@@ -76,6 +76,8 @@ export function AboutPage() {
             <img
               src="/about_hero_studio.png"
               alt="Circle HQ Team Studio Operations"
+              fetchPriority="high"
+              decoding="async"
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-hq-ink/70 via-transparent to-transparent" />
