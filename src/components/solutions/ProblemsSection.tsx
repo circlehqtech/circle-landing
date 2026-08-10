@@ -65,7 +65,7 @@ export function ProblemsSection() {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-0 top-6 h-80 w-152 rounded-full bg-brand opacity-[0.13] blur-[130px]"
+        className="pointer-events-none absolute right-0 top-6 h-80 w-152 rounded-full bg-hq-red opacity-[0.13] blur-[130px]"
         aria-hidden="true"
       />
 

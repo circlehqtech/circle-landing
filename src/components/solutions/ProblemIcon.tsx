@@ -27,7 +27,7 @@ export function ProblemIcon({ name, active }: ProblemIconProps) {
     <span
       className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-colors duration-300 ${
         active
-          ? "border-brand bg-brand text-white"
+          ? "border-hq-red bg-hq-red text-white"
           : "border-white/10 bg-white/[0.04] text-zinc-400"
       }`}
     >

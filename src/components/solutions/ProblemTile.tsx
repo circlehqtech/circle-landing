@@ -40,16 +40,16 @@ export function ProblemTile({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative overflow-hidden rounded-3xl border p-6 text-left outline-none transition-[transform,border-color,background-color,opacity] duration-300 focus-visible:ring-2 focus-visible:ring-brand ${
+      className={`group relative overflow-hidden rounded-3xl border p-6 text-left outline-none transition-[transform,border-color,background-color,opacity] duration-300 focus-visible:ring-2 focus-visible:ring-hq-red ${
         active
-          ? "-translate-y-1 border-brand/60 bg-[#111111]"
-          : "border-white/[0.08] bg-[#0B0B0B] hover:border-white/20"
+          ? "-translate-y-1 border-hq-red/60 bg-[#111111]"
+          : "border-white/[0.08] bg-[#0B0B0B] hover:border-hq-red/20"
       } ${dimmed ? "opacity-45" : "opacity-100"} ${className}`}
     >
       <span
         aria-hidden="true"
         className={`pointer-events-none absolute inset-x-0 top-0 h-[3px] transition-colors duration-300 ${
-          active ? "bg-brand" : "bg-white/[0.07]"
+          active ? "bg-hq-red" : "bg-white/[0.07]"
         }`}
       />
 
@@ -64,7 +64,7 @@ export function ProblemTile({
         className={`mt-5 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] transition-colors duration-500 ${
           solved
             ? "border-white/20 bg-white text-black"
-            : "border-brand/30 bg-brand/10 text-brand-bright"
+            : "border-hq-red/30 bg-hq-red/10 text-hq-red"
         }`}
       >
         <AnimatePresence mode="wait" initial={false}>

@@ -4,7 +4,7 @@ type TypingDotsProps = {
   className?: string;
 };
 
-export function TypingDots({ className = "bg-brand" }: TypingDotsProps) {
+export function TypingDots({ className = "bg-hq-red" }: TypingDotsProps) {
   return (
     <span
       className="flex items-center gap-1.5 py-1"

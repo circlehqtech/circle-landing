@@ -50,7 +50,7 @@ export function FloatingAssistant({
               </p>
               <span className="mt-0.5 flex items-center gap-1.5 text-[11px] text-black/50">
                 <motion.span
-                  className="block h-1.5 w-1.5 rounded-full bg-brand"
+                  className="block h-1.5 w-1.5 rounded-full bg-hq-red"
                   animate={{ opacity: [1, 0.25, 1] }}
                   transition={{
                     duration: 1.8,
@@ -63,7 +63,7 @@ export function FloatingAssistant({
               </span>
             </div>
             {active && (
-              <span className="ml-auto rounded-full bg-brand px-2 py-1 font-display text-[9px] font-bold uppercase tracking-[0.14em] text-white">
+              <span className="ml-auto rounded-full bg-hq-red px-2 py-1 font-display text-[9px] font-bold uppercase tracking-[0.14em] text-white">
                 Our fix
               </span>
             )}

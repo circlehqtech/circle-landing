@@ -19,7 +19,7 @@ export function RobotAvatar({ awake, size = 40 }: RobotAvatarProps) {
       aria-hidden="true"
     >
       <motion.span
-        className="absolute inset-0 rounded-full bg-brand blur-xl"
+        className="absolute inset-0 rounded-full bg-hq-red blur-xl"
         animate={{ opacity: awake ? 0.5 : 0.14 }}
         transition={{ duration: 0.35 }}
       />
