@@ -65,8 +65,11 @@ export function ContactCTA() {
                 BOOK YOUR CONSULTATION
               </p>
               <h2 className="font-display text-3xl sm:text-4xl font-semibold leading-tight text-white">
-                Let's Start a Conversation
+                Ready to Run Smarter?
               </h2>
+              <p className="mt-3 text-sm leading-relaxed text-hq-mute">
+                Whether you need a system built, a team trained, or both — every engagement starts with a conversation, not a sales pitch.
+              </p>
             </div>
 
             {/* Find Us Block */}
@@ -225,7 +228,7 @@ export function ContactCTA() {
                   <MagneticButton
                     type="submit"
                     className="inline-flex items-center gap-2 rounded-full bg-hq-red px-8 py-3.5 text-sm font-medium text-white shadow-lg hover:bg-hq-red-deep transition-all">
-                    &rarr; Book my consultation
+                    Book a Consultation
                   </MagneticButton>
                   <span className="font-mono text-xs text-hq-mute/80">
                     No obligation. No sales pitch.

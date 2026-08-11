@@ -36,7 +36,7 @@ export function Industries() {
               INDUSTRIES WE COVER
             </span>
             <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-hq-ink sm:text-5xl">
-              If your business runs on process, <span className="text-hq-red">we can help.</span>
+              Industries We Cover
             </h2>
           </div>
 

@@ -52,13 +52,12 @@ export function Standard() {
               Why Circle HQ
             </p>
             <SplitHeading
-              text="Built in Lagos. Held to one bar."
-              muted={['Held', 'to', 'one', 'bar']}
+              text="Why Circle HQ. Built for your business."
+              muted={['Built', 'for', 'your', 'business.']}
               className="font-display text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl" />
             
             <p className="mt-6 max-w-md text-sm leading-relaxed text-hq-mute">
-              We work with founders and teams who are past experimenting and want systems that hold
-              under real volume.
+              We build durable AI infrastructure and workforce capability for companies ready to operate smarter.
             </p>
 
             <dl className="mt-12 space-y-6">

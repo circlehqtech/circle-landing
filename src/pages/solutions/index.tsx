@@ -13,6 +13,7 @@ import {
   ZapIcon,
 } from "lucide-react";
 import { ProblemsSection } from "../../components/solutions/ProblemsSection";
+import { ProcessSection } from "../../components/timeline/ProcessSection";
 
 const STEPS = [
   {
@@ -277,8 +278,9 @@ export function SolutionsPage() {
       </section>
 
       {/* Methodology: How We Work - Timeline Animation Section */}
-      <section className="relative overflow-hidden py-24 sm:py-32 border-t border-hq-line bg-hq-black">
-        {/* Ambient Glow */}
+      <ProcessSection />
+
+      {/* <section className="relative overflow-hidden py-24 sm:py-32 border-t border-hq-line bg-hq-black">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-[800px] rounded-full bg-hq-red/5 blur-[120px]"
@@ -315,9 +317,7 @@ export function SolutionsPage() {
             </motion.p>
           </div>
 
-          {/* Timeline Wrapper */}
           <div className="relative mt-20">
-            {/* Desktop Horizontal Progress Line */}
             <div className="absolute top-[28px] left-[10%] right-[10%] hidden lg:block h-[2px] bg-hq-line z-0">
               <motion.div
                 initial={{ scaleX: 0 }}
@@ -328,7 +328,6 @@ export function SolutionsPage() {
               />
             </div>
 
-            {/* 4 Steps Grid */}
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 relative z-10">
               {STEPS.map((s, i) => {
                 const Icon = s.icon;
@@ -345,7 +344,6 @@ export function SolutionsPage() {
                     }}
                     className="group relative flex flex-col"
                   >
-                    {/* Glowing Milestone Circle Node */}
                     <div className="mb-8 flex items-center justify-center">
                       <div className="relative flex h-14 w-14 items-center justify-center rounded-full border-2 border-hq-line bg-hq-panel text-white shadow-xl transition-all duration-500 group-hover:border-hq-red group-hover:bg-hq-red group-hover:shadow-[0_0_25px_#e0142c] group-hover:scale-110">
                         <Icon
@@ -358,7 +356,6 @@ export function SolutionsPage() {
                       </div>
                     </div>
 
-                    {/* Step Card */}
                     <div className="flex flex-1 flex-col rounded-2xl border border-hq-line bg-hq-panel p-6 shadow-xl transition-all duration-300 group-hover:-translate-y-2 group-hover:border-hq-red/50 group-hover:shadow-2xl group-hover:shadow-hq-red/10">
                       <h3 className="mt-4 font-display text-xl font-semibold text-white group-hover:text-hq-red transition-colors">
                         {s.title}
@@ -374,7 +371,7 @@ export function SolutionsPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Industries Covered */}
       <section className="bg-hq-panel/50 border-t border-hq-line py-20">

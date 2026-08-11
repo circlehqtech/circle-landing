@@ -3,12 +3,10 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   BotIcon,
   GraduationCapIcon,
-  MegaphoneIcon,
-  PlusIcon,
-  BoxIcon,
   type LucideIcon,
 } from "lucide-react";
 import { SplitHeading } from "../common/SplitHeading";
+import { ScrollRevealText } from "../common/ScrollRevealText";
 import { Link } from "react-router-dom";
 
 type Division = {
@@ -17,8 +15,9 @@ type Division = {
   title: string;
   blurb: string;
   icon: LucideIcon;
+  image: string;
   capabilities: string[];
-  note?: string;
+  ctaText: string;
   link: string;
 };
 
@@ -28,14 +27,16 @@ const DIVISIONS: Division[] = [
     index: "01",
     title: "Circle AI Solutions",
     blurb:
-      "Custom AI systems that remove the operational drag from growing businesses — built around the problem you actually have.",
+      "We build custom AI systems for your business — from customer-facing chat agents to internal reporting and workflow automation. We investigate where your business actually stands, then build what closes the gap.",
     icon: BotIcon,
+    image: "/blog_ai_solutions_sphere.png",
     capabilities: [
-      "Chatbots",
-      "CRM automation",
-      "Live dashboards",
-      "Workflow automation",
+      "Customer Chat Agents",
+      "Internal Reporting",
+      "Workflow Automation",
+      "System Architecture",
     ],
+    ctaText: "See What We Build →",
     link: "/solutions",
   },
   {
@@ -43,31 +44,17 @@ const DIVISIONS: Division[] = [
     index: "02",
     title: "Circle Academy",
     blurb:
-      "Practical AI training for professionals, teams, and organisations — from business literacy to building functioning AI agents.",
+      "We train the people behind the systems — from full teams learning to work confidently alongside AI, to individuals learning to build AI agents from scratch.",
     icon: GraduationCapIcon,
+    image: "/academy_workshop_training.png",
     capabilities: [
-      "AI business literacy",
-      "Team workshops",
-      "Agent building",
-      "Org programmes",
+      "Team Upskilling",
+      "Agent Engineering",
+      "AI Business Literacy",
+      "Cohort Training",
     ],
-    note: "Plus free outreach for secondary school students.",
+    ctaText: "See Our Training →",
     link: "/academy",
-  },
-  {
-    id: "consultation",
-    index: "03",
-    title: "Consultation & Assessment",
-    blurb:
-      "Short, honest conversation to figure out whether AI is the right fix for what you are dealing with, and where to start.",
-    icon: MegaphoneIcon,
-    capabilities: [
-      "Process audit",
-      "Readiness assessment",
-      "Roadmap design",
-      "Implementation advice",
-    ],
-    link: "/consultation",
   },
 ];
 
@@ -88,25 +75,14 @@ export function Divisions() {
             The Two Sides of Circle HQ
           </motion.p>
           <SplitHeading
-            text="Systems, workforce, and the intelligence behind both."
-            muted={["and", "the", "intelligence", "behind", "both"]}
+            text="Systems and the people who run them."
+            muted={["and", "the", "people", "who", "run", "them."]}
             className="max-w-2xl font-display text-4xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-5xl"
           />
         </div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="max-w-sm text-sm leading-relaxed text-hq-mute"
-        >
-          A system is only as good as the people running it. That's the sweet
-          spot Circle HQ sits in — build the AI, then build the capability to
-          run it.
-        </motion.p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-8 lg:grid-cols-2">
         {DIVISIONS.map((division, i) => (
           <DivisionCard key={division.id} division={division} index={i} />
         ))}
@@ -174,7 +150,7 @@ function DivisionCard({
       onBlur={() => setHovered(false)}
       tabIndex={0}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className={`group relative flex flex-col overflow-hidden rounded-2xl border p-7 transition-colors duration-300 [transform-style:preserve-3d] ${
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border p-6 sm:p-8 transition-colors duration-300 [transform-style:preserve-3d] ${
         hovered
           ? "border-hq-red/60 bg-hq-panel"
           : "border-hq-line bg-white/[0.015]"
@@ -190,36 +166,33 @@ function DivisionCard({
         }}
       />
 
+      {/* Top Card Image Header */}
       <div
-        className="relative flex items-start justify-between"
-        style={{ transform: "translateZ(30px)" }}
+        className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-hq-line/80 bg-hq-black mb-6"
+        style={{ transform: "translateZ(25px)" }}
       >
-        <span className="font-mono text-[11px] tracking-widest text-hq-mute">
+        <img
+          src={division.image}
+          alt={division.title}
+          className="h-full w-full object-cover opacity-75 group-hover:scale-105 group-hover:opacity-95 transition-all duration-700 ease-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-hq-panel via-hq-panel/30 to-transparent" />
+        <div className="absolute top-3.5 left-3.5 font-mono text-[11px] font-bold tracking-widest text-white/90 bg-hq-black/80 backdrop-blur-md border border-white/10 rounded-full px-3.5 py-1">
           {division.index}
-        </span>
-        <motion.span
-          animate={
-            hovered ? { rotate: 90, scale: 1.06 } : { rotate: 0, scale: 1 }
-          }
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
-          className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 ${
-            hovered
-              ? "border-hq-red bg-hq-red text-white"
-              : "border-hq-line text-hq-mute"
-          }`}
-        >
-          <Icon size={18} />
-        </motion.span>
+        </div>
+        <div className="absolute top-3.5 right-3.5 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-hq-black/80 text-white backdrop-blur-md transition-colors duration-300 group-hover:border-hq-red group-hover:bg-hq-red">
+          <Icon size={16} />
+        </div>
       </div>
 
       <h3
-        className="relative mt-10 font-display text-2xl font-semibold tracking-tight text-white"
+        className="relative font-display text-2xl sm:text-3xl font-semibold tracking-tight text-white"
         style={{ transform: "translateZ(40px)" }}
       >
         {division.title}
       </h3>
       <p
-        className="relative mt-3 text-sm leading-relaxed text-hq-mute"
+        className="relative mt-3 text-sm sm:text-base leading-relaxed text-hq-mute"
         style={{ transform: "translateZ(20px)" }}
       >
         {division.blurb}
@@ -239,19 +212,12 @@ function DivisionCard({
               stiffness: 300,
               damping: 20,
             }}
-            className="rounded-full border border-hq-line px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-hq-mute transition-colors duration-300 group-hover:border-hq-red/40 group-hover:text-white"
+            className="rounded-full border border-hq-line px-3.5 py-1 font-mono text-[10px] uppercase tracking-widest text-hq-mute transition-colors duration-300 group-hover:border-hq-red/40 group-hover:text-white"
           >
             {cap}
           </motion.li>
         ))}
       </ul>
-
-      {division.note && (
-        <p className="relative mt-6 flex items-start gap-2 rounded-lg border border-hq-red/25 bg-hq-red/[0.06] p-3 text-xs leading-relaxed text-white/80">
-          <PlusIcon size={14} className="mt-0.5 shrink-0 text-hq-red" />
-          {division.note}
-        </p>
-      )}
 
       <div
         className="relative mt-auto pt-8"
@@ -259,10 +225,10 @@ function DivisionCard({
       >
         <Link
           to={division.link}
-          className="inline-flex items-center gap-2 text-sm text-white hover:text-hq-red transition-colors"
+          className="inline-flex items-center gap-2 font-medium text-sm text-white hover:text-hq-red transition-colors group-hover:translate-x-1 duration-200"
         >
-          <span className="h-px w-6 bg-hq-red transition-all duration-300 group-hover:w-12" />
-          Learn More &rarr;
+          <span className="h-px w-6 bg-hq-red transition-all duration-300 group-hover:w-10" />
+          {division.ctaText}
         </Link>
       </div>
     </motion.article>

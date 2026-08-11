@@ -37,12 +37,13 @@ const MEDIA = {
 const LINE_ONE: Word[] = [{ text: "One" }, { text: "HQ.", media: MEDIA.orb }];
 
 const LINE_TWO: Word[] = [
-  { text: "Three", muted: true },
-  { text: "ways", muted: true },
+  { text: "Two", muted: true },
+  { text: "Ways", muted: true },
   { text: "to", muted: true },
-  { text: "run", media: MEDIA.systems },
-  { text: "businesses", media: MEDIA.marketing },
-  { text: "smarter.", media: MEDIA.academy },
+  { text: "Run", media: MEDIA.systems },
+  { text: "Your" },
+  { text: "Business", media: MEDIA.marketing },
+  { text: "Smarter.", media: MEDIA.academy },
 ];
 
 const PILLS = [
@@ -73,7 +74,7 @@ export function Hero() {
       id="top"
       ref={ref}
       data-sage-track="The pitch"
-      className="hq-grain relative isolate flex min-h-[100svh] w-full flex-col justify-end overflow-hidden pb-14 pt-32 sm:pb-20"
+      className="hq-grain relative isolate flex min-h-svh w-full flex-col justify-end overflow-hidden pb-14 pt-32 sm:pb-20"
     >
       <motion.div style={{ scale: fieldScale }} className="absolute inset-0">
         <CursorField />
@@ -94,10 +95,10 @@ export function Hero() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-hq-red opacity-75" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-hq-red" />
           </span>
-          Lagos-built · Operating worldwide
+          Circle HQ · Lagos, Nigeria
         </motion.p>
 
-        <h1 className="font-display text-[13vw] font-semibold leading-[0.95] tracking-[-0.04em] sm:text-[9vw] lg:text-[6.6vw]">
+        <h1 className="font-display text-[13vw] font-semibold leading-[0.95] tracking-[-0.04em] sm:text-[9vw] lg:text-[6vw]">
           <span className="block">
             {LINE_ONE.map((word) => (
               <SplitWord
@@ -135,11 +136,9 @@ export function Hero() {
             transition={{ delay: 0.9, duration: 0.7, ease: "easeOut" }}
             className="max-w-xl text-base leading-relaxed text-hq-mute sm:text-lg"
           >
-            Circle HQ builds the AI systems that run your operations and trains
-            the people who’ll manage them.{" "}
-            <span className="text-white">
-              Smart AI Solutions & Workforce Capability.
-            </span>
+            Circle HQ exists to solve business problems through smart AI
+            solutions. Circle AI Solutions builds the systems your operation
+            runs on. Circle Academy trains the people who run them.
           </motion.p>
 
           <motion.div
@@ -150,21 +149,21 @@ export function Hero() {
           >
             <div className="flex flex-wrap gap-3">
               <MagneticButton
-                href="/consultation"
+                href="/solutions"
                 className="group inline-flex items-center gap-2 rounded-full bg-hq-red px-6 py-3 text-sm font-medium text-white"
               >
-                Book a Consultation
+                Explore AI Solutions
                 <ArrowRightIcon
                   size={16}
                   className="transition-transform duration-200 group-hover:translate-x-1"
                 />
               </MagneticButton>
               <MagneticButton
-                href="/solutions"
+                href="/academy"
                 strength={0.25}
                 className="inline-flex items-center gap-2 rounded-full border border-hq-line px-6 py-3 text-sm text-white transition-colors duration-200 hover:border-hq-red hover:text-hq-red"
               >
-                Explore Solutions
+                Explore Circle Academy
                 <ArrowDownRightIcon size={16} />
               </MagneticButton>
             </div>
