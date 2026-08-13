@@ -70,9 +70,9 @@ export function FaqChat() {
     <section
       id="faq"
       data-sage-track="FAQ"
-      className="relative overflow-hidden bg-hq-bone border-y border-hq-ink/10 py-24 text-hq-ink sm:py-32">
+      className="relative overflow-hidden bg-hq-black border-y border-hq-line py-24 text-white sm:py-32">
       
-      {/* Light soft depth glow */}
+      {/* Soft dark red glow background */}
       <span
         aria-hidden="true"
         className="pointer-events-none absolute -left-40 -top-40 h-[28rem] w-[28rem] rounded-full bg-hq-red/10 blur-[120px]" />
@@ -82,18 +82,18 @@ export function FaqChat() {
           <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-hq-red font-semibold">
             Questions
           </p>
-          <h2 className="max-w-md font-display text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-hq-ink sm:text-5xl">
+          <h2 className="max-w-md font-display text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-white sm:text-5xl">
             Ask the awkward ones.
             <span className="block text-hq-red">We answer them the same way.</span>
           </h2>
 
-          <div className="mt-8 flex items-center gap-3 rounded-2xl border border-hq-ink/10 bg-white p-4 shadow-sm">
+          <div className="mt-8 flex items-center gap-3 rounded-2xl border border-hq-line bg-hq-panel p-4 shadow-xl">
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-hq-red font-display text-sm font-semibold text-white">
               CH
             </span>
             <div>
-              <p className="text-sm font-semibold text-hq-ink">Circle HQ Support</p>
-              <p className="flex items-center gap-1.5 text-xs text-hq-ink/60">
+              <p className="text-sm font-semibold text-white">Circle HQ Support</p>
+              <p className="flex items-center gap-1.5 text-xs text-hq-mute">
                 <motion.span
                   animate={{ opacity: [1, 0.3, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -103,13 +103,13 @@ export function FaqChat() {
             </div>
           </div>
 
-          <p className="mt-6 max-w-xs text-sm leading-relaxed text-hq-ink/70">
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-hq-mute">
             Every answer below is the same one you would get on a call. No sales script.
           </p>
         </div>
 
-        {/* Light Chat Window Container */}
-        <div className="rounded-[28px] border border-hq-ink/15 bg-white p-4 sm:p-6 shadow-md">
+        {/* Dark Chat Window Container */}
+        <div className="rounded-[28px] border border-hq-line bg-hq-panel/80 p-4 sm:p-6 shadow-2xl backdrop-blur-md">
           <div
             ref={threadRef}
             role="log"
@@ -117,7 +117,7 @@ export function FaqChat() {
             className="flex max-h-[26rem] min-h-[16rem] flex-col gap-5 overflow-y-auto pr-1">
             
             {thread.length === 0 && (
-              <p className="m-auto max-w-xs text-center text-sm text-hq-ink/60">
+              <p className="m-auto max-w-xs text-center text-sm text-hq-mute">
                 Tap a question below — it sends like a message, and support replies.
               </p>
             )}
@@ -132,13 +132,13 @@ export function FaqChat() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 24 }}
                     className="flex flex-col items-end">
-                    <span className="inline-flex max-w-[85%] items-center gap-3 rounded-full bg-hq-ink py-3 pl-4 pr-5 text-left text-sm font-medium text-white shadow-sm">
-                      <span className="font-display text-base font-semibold text-white/50">
+                    <span className="inline-flex max-w-[85%] items-center gap-3 rounded-full bg-hq-red py-3 pl-4 pr-5 text-left text-sm font-medium text-white shadow-md">
+                      <span className="font-display text-base font-semibold text-white/60">
                         {faq.num}
                       </span>
                       {faq.question}
                     </span>
-                    <span className="mt-1.5 flex items-center gap-1 pr-2 font-mono text-[9px] uppercase tracking-widest text-hq-ink/50">
+                    <span className="mt-1.5 flex items-center gap-1 pr-2 font-mono text-[9px] uppercase tracking-widest text-hq-mute">
                       Sent <CheckCheckIcon size={11} className="text-hq-red" />
                     </span>
                   </motion.div>
@@ -150,7 +150,7 @@ export function FaqChat() {
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="relative max-w-[92%] rounded-[26px] rounded-bl-none border border-hq-ink/10 bg-hq-boneDeep p-5 pr-8 text-[14px] leading-relaxed text-hq-ink shadow-sm">
+                      className="relative max-w-[92%] rounded-[26px] rounded-bl-none border border-hq-line bg-white/[0.03] p-5 pr-8 text-[14px] leading-relaxed text-hq-mute shadow-sm">
                       {faq.answer}
                     </motion.div>
                   ) : (
@@ -158,7 +158,7 @@ export function FaqChat() {
                       layout
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex w-16 items-center justify-center gap-1.5 rounded-full rounded-bl-md border border-hq-ink/10 bg-hq-boneDeep py-3">
+                      className="flex w-16 items-center justify-center gap-1.5 rounded-full rounded-bl-md border border-hq-line bg-white/[0.03] py-3">
                       {[0, 1, 2].map((i) => (
                         <motion.span
                           key={i}
@@ -173,8 +173,8 @@ export function FaqChat() {
             </AnimatePresence>
           </div>
 
-          <div className="mt-6 border-t border-hq-ink/10 pt-5">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.24em] text-hq-ink/60">
+          <div className="mt-6 border-t border-hq-line pt-5">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.24em] text-hq-mute">
               {remaining.length > 0 ? 'Tap to send' : 'That is everything'}
             </p>
 
@@ -191,7 +191,7 @@ export function FaqChat() {
                         type="button"
                         onClick={() => ask(faq)}
                         disabled={pending !== null}
-                        className="group inline-flex items-center gap-2.5 rounded-full border border-hq-ink/15 bg-hq-bone px-4 py-2.5 text-[13px] font-medium text-hq-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-hq-red hover:text-white disabled:opacity-40 shadow-sm">
+                        className="group inline-flex items-center gap-2.5 rounded-full border border-hq-line bg-white/[0.02] px-4 py-2.5 text-[13px] font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-hq-red hover:border-hq-red disabled:opacity-40 shadow-sm">
                         <span className="font-display text-[13px] font-semibold text-hq-red group-hover:text-white">
                           {faq.num}
                         </span>

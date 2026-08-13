@@ -1,26 +1,39 @@
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRightIcon, CheckIcon, MapPinIcon, MailIcon, PhoneIcon } from 'lucide-react';
-import { MagneticButton } from '../common/MagneticButton';
+import React, { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  ArrowRightIcon,
+  CheckIcon,
+  MapPinIcon,
+  MailIcon,
+  PhoneIcon,
+} from "lucide-react";
+import { MagneticButton } from "../common/MagneticButton";
+import { CONSULTATION_PRICING } from "../../data/consultationPricing";
 
 export function ContactCTA() {
   const ref = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const glowY = useTransform(scrollYProgress, [0, 1], ['-30%', '30%']);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const glowY = useTransform(scrollYProgress, [0, 1], ["-30%", "30%"]);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [teamSize, setTeamSize] = useState('2–10');
-  const [serviceType, setServiceType] = useState('Not sure yet');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [teamSize, setTeamSize] = useState("2–10");
+  const [serviceType, setServiceType] = useState("Not sure yet");
+  const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const TEAM_SIZES = ['Just me', '2–10', '11–50', '50+'];
-  const SERVICE_TYPES = ['AI Solutions', 'Academy', 'Both', 'Not sure yet'];
+  const SERVICE_TYPES = ["AI Solutions", "Academy", "Both", "Not sure yet"];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const tier = CONSULTATION_PRICING[teamSize] || CONSULTATION_PRICING["2–10"];
+    if (tier?.paystackUrl) {
+      window.open(tier.paystackUrl, "_blank", "noopener,noreferrer");
+    }
     setSubmitted(true);
   };
 
@@ -29,35 +42,36 @@ export function ContactCTA() {
       id="contact"
       ref={ref}
       data-sage-track="Contact"
-      className="relative mx-auto w-full max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-      
+      className="relative mx-auto w-full max-w-7xl px-5 py-24 sm:px-8 sm:py-32"
+    >
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="hq-grain relative overflow-hidden rounded-3xl border border-hq-line bg-hq-panel p-8 sm:p-14 shadow-2xl">
-        
+        className="hq-grain relative overflow-hidden rounded-3xl border border-hq-line bg-hq-panel p-8 sm:p-14 shadow-2xl"
+      >
         {/* Rotating beam behind the panel edge */}
         <motion.span
           aria-hidden="true"
           animate={{ rotate: 360 }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
           className="pointer-events-none absolute -inset-[60%] opacity-[0.35]"
           style={{
             background:
-              'conic-gradient(from 0deg, transparent 0deg, rgba(224,20,44,0.55) 25deg, transparent 60deg, transparent 360deg)',
-            maskImage: 'radial-gradient(circle, transparent 55%, black 58%)'
-          }} />
-        
+              "conic-gradient(from 0deg, transparent 0deg, rgba(224,20,44,0.55) 25deg, transparent 60deg, transparent 360deg)",
+            maskImage: "radial-gradient(circle, transparent 55%, black 58%)",
+          }}
+        />
+
         <span className="pointer-events-none absolute inset-px rounded-[calc(1.5rem-1px)] bg-hq-panel" />
         <motion.span
           aria-hidden="true"
           style={{ y: glowY }}
-          className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-hq-red/15 blur-[100px]" />
+          className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-hq-red/15 blur-[100px]"
+        />
 
         <div className="relative grid gap-12 lg:grid-cols-12 items-start">
-          
           {/* Left Column: Address, Contact Info & Office Hours */}
           <div className="lg:col-span-5 space-y-8">
             <div>
@@ -68,7 +82,8 @@ export function ContactCTA() {
                 Ready to Run Smarter?
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-hq-mute">
-                Whether you need a system built, a team trained, or both — every engagement starts with a conversation, not a sales pitch.
+                Whether you need a system built, a team trained, or both — every
+                engagement starts with a conversation, not a sales pitch.
               </p>
             </div>
 
@@ -78,19 +93,21 @@ export function ContactCTA() {
                 FIND US
               </p>
               <div className="space-y-3.5 text-sm sm:text-base">
-                <div className="flex items-start gap-3 text-white/90">
-                  <MapPinIcon size={18} className="mt-0.5 shrink-0 text-hq-red" />
-                  <span>12 Herbert Macaulay Way, Yaba, Lagos, Nigeria</span>
-                </div>
                 <div className="flex items-center gap-3 text-white/90">
                   <MailIcon size={18} className="shrink-0 text-hq-red" />
-                  <a href="mailto:hello@circlehq.africa" className="hover:text-hq-red transition-colors">
-                    hello@circlehq.africa
+                  <a
+                    href="mailto:hello@circlehqcompany.com"
+                    className="hover:text-hq-red transition-colors"
+                  >
+                    hello@circlehqcompany.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3 text-white/90">
                   <PhoneIcon size={18} className="shrink-0 text-hq-red" />
-                  <a href="tel:+2348000000000" className="hover:text-hq-red transition-colors">
+                  <a
+                    href="tel:+2348000000000"
+                    className="hover:text-hq-red transition-colors"
+                  >
                     +234 800 000 0000
                   </a>
                 </div>
@@ -98,14 +115,15 @@ export function ContactCTA() {
             </div>
 
             {/* Office Hours Block */}
-            <div className="rounded-2xl border border-hq-line bg-hq-black/60 p-6 space-y-2.5">
+            {/* <div className="rounded-2xl border border-hq-line bg-hq-black/60 p-6 space-y-2.5">
               <h3 className="font-display text-xl font-semibold text-white">
                 Office hours
               </h3>
               <p className="text-sm leading-relaxed text-hq-mute">
-                Monday to Friday, 9am – 6pm WAT. Academy cohort sessions run Tuesday and Thursday evenings plus Saturday mornings.
+                Monday to Friday, 9am – 6pm WAT. Academy cohort sessions run
+                Tuesday and Thursday evenings plus Saturday mornings.
               </p>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Column: Form Controls */}
@@ -115,17 +133,19 @@ export function ContactCTA() {
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-hq-red text-white mx-auto">
                   <CheckIcon size={24} />
                 </div>
-                <h3 className="font-display text-2xl font-semibold text-white">Consultation Request Received</h3>
+                <h3 className="font-display text-2xl font-semibold text-white">
+                  Consultation Request Received
+                </h3>
                 <p className="text-sm text-hq-mute max-w-md mx-auto">
-                  Thank you{name ? `, ${name}` : ''}. We have received your details and will get back to you within 24 hours.
+                  Thank you{name ? `, ${name}` : ""}. We have received your
+                  details and will get back to you within 24 hours.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                
                 {/* Name, Email & Company inputs */}
                 <div className="grid gap-4 sm:grid-cols-3">
-                  <div>
+                  {/* <div>
                     <label className="block font-mono text-[10px] uppercase tracking-widest text-hq-mute mb-2">
                       YOUR NAME
                     </label>
@@ -137,8 +157,8 @@ export function ContactCTA() {
                       placeholder="Ada Obi"
                       className="w-full rounded-xl border border-hq-line bg-hq-black px-4 py-3 text-sm text-white placeholder:text-hq-mute/50 outline-none focus:border-hq-red transition-colors"
                     />
-                  </div>
-                  <div>
+                  </div> */}
+                  {/* <div>
                     <label className="block font-mono text-[10px] uppercase tracking-widest text-hq-mute mb-2">
                       WORK EMAIL
                     </label>
@@ -162,7 +182,7 @@ export function ContactCTA() {
                       placeholder="Acme Corp"
                       className="w-full rounded-xl border border-hq-line bg-hq-black px-4 py-3 text-sm text-white placeholder:text-hq-mute/50 outline-none focus:border-hq-red transition-colors"
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Team Size Pills */}
@@ -171,21 +191,54 @@ export function ContactCTA() {
                     TEAM SIZE
                   </label>
                   <div className="flex flex-wrap gap-2.5">
-                    {TEAM_SIZES.map((size) => (
+                    {Object.keys(CONSULTATION_PRICING).map((size) => (
                       <button
                         key={size}
                         type="button"
                         onClick={() => setTeamSize(size)}
-                        className={`rounded-full px-5 py-2 text-xs font-mono font-medium transition-all duration-200 ${
+                        className={`rounded-full px-5 py-2 text-xs font-mono font-medium transition-all duration-200 cursor-pointer ${
                           teamSize === size
-                            ? 'bg-hq-red text-white shadow-md shadow-hq-red/30'
-                            : 'border border-hq-line bg-hq-black/60 text-hq-mute hover:border-white/40 hover:text-white'
-                        }`}>
+                            ? "bg-hq-red text-white shadow-md shadow-hq-red/30"
+                            : "border border-hq-line bg-hq-black/60 text-hq-mute hover:border-white/40 hover:text-white"
+                        }`}
+                      >
                         {size}
                       </button>
                     ))}
                   </div>
                 </div>
+
+                {/* Dynamic Consultation Fee Banner */}
+                {CONSULTATION_PRICING[teamSize] && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    key={teamSize}
+                    className="rounded-2xl border border-hq-red/40 bg-[#170406]/90 p-5 backdrop-blur-sm"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-hq-red/20">
+                      <div>
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-hq-red">
+                          CONSULTATION FEE // {teamSize} TEAM
+                        </span>
+                        <h4 className="mt-1 font-display text-2xl font-bold text-white">
+                          {CONSULTATION_PRICING[teamSize].formattedPrice}{" "}
+                          <span className="text-xs font-mono text-zinc-400 font-normal">
+                            NGN
+                          </span>
+                        </h4>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-hq-red/15 px-3 py-1 font-mono text-[10px] font-semibold text-hq-red border border-hq-red/30 self-start sm:self-auto">
+                        <CheckIcon size={12} /> Paystack Verified
+                      </span>
+                    </div>
+                    <p className="mt-3 text-xs text-zinc-300 leading-relaxed">
+                      Includes 60-min executive strategy session, custom AI
+                      operational assessment, and automated email receipt to
+                      customer & company.
+                    </p>
+                  </motion.div>
+                )}
 
                 {/* What Are You After Pills */}
                 <div>
@@ -198,11 +251,12 @@ export function ContactCTA() {
                         key={type}
                         type="button"
                         onClick={() => setServiceType(type)}
-                        className={`rounded-full px-5 py-2 text-xs font-mono font-medium transition-all duration-200 ${
+                        className={`rounded-full px-5 py-2 text-xs font-mono font-medium transition-all duration-200 cursor-pointer ${
                           serviceType === type
-                            ? 'bg-hq-red text-white shadow-md shadow-hq-red/30'
-                            : 'border border-hq-line bg-hq-black/60 text-hq-mute hover:border-white/40 hover:text-white'
-                        }`}>
+                            ? "bg-hq-red text-white shadow-md shadow-hq-red/30"
+                            : "border border-hq-line bg-hq-black/60 text-hq-mute hover:border-white/40 hover:text-white"
+                        }`}
+                      >
                         {type}
                       </button>
                     ))}
@@ -224,21 +278,20 @@ export function ContactCTA() {
                 </div>
 
                 {/* Submit button & note */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
+                <div className="flex flex-col gap-3 pt-2">
                   <MagneticButton
                     type="submit"
-                    className="inline-flex items-center gap-2 rounded-full bg-hq-red px-8 py-3.5 text-sm font-medium text-white shadow-lg hover:bg-hq-red-deep transition-all">
-                    Book a Consultation
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-hq-red px-8 py-4 text-sm font-medium text-white shadow-lg hover:bg-hq-red-deep transition-all cursor-pointer"
+                  >
+                    Proceed to Payment (
+                    {CONSULTATION_PRICING[teamSize]?.formattedPrice ||
+                      "₦100,000"}
+                    ) <ArrowRightIcon size={16} />
                   </MagneticButton>
-                  <span className="font-mono text-xs text-hq-mute/80">
-                    No obligation. No sales pitch.
-                  </span>
                 </div>
-
               </form>
             )}
           </div>
-
         </div>
       </motion.div>
     </section>

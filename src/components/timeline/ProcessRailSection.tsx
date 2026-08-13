@@ -12,6 +12,8 @@ import { steps } from "../../data/steps";
 
 export function ProcessRailSection() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const isClickingRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
@@ -27,6 +29,7 @@ export function ProcessRailSection() {
   const fill = useTransform(smooth, [0, 1], ["0%", "calc(100% - 56px)"]);
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (isClickingRef.current) return;
     const next = Math.min(
       steps.length - 1,
       Math.max(0, Math.floor(value * steps.length)),
@@ -34,16 +37,28 @@ export function ProcessRailSection() {
     setActiveIndex((current) => (current === next ? current : next));
   });
 
-  // Clicking a node scrolls to that step's slice of the track
+  // Clicking a node scrolls to that step's slice of the track without scroll-thrashing
   const goToStep = (index: number) => {
+    isClickingRef.current = true;
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setActiveIndex(index);
+
     const el = trackRef.current;
-    if (!el) return;
-    const scrollable = el.offsetHeight - window.innerHeight;
-    const ratio = (index + 0.5) / steps.length;
-    window.scrollTo({
-      top: el.offsetTop + scrollable * ratio,
-      behavior: "smooth",
-    });
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const absoluteTop = rect.top + scrollTop;
+      const scrollable = el.offsetHeight - window.innerHeight;
+      const ratio = (index + 0.5) / steps.length;
+      window.scrollTo({
+        top: absoluteTop + scrollable * ratio,
+        behavior: "smooth",
+      });
+    }
+
+    timerRef.current = setTimeout(() => {
+      isClickingRef.current = false;
+    }, 800);
   };
 
   const active = steps[activeIndex];

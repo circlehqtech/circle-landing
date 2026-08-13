@@ -87,6 +87,8 @@ const STEPS: Step[] = [
 
 export function HowWeWork() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const isClickingRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
@@ -95,6 +97,7 @@ export function HowWeWork() {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (isClickingRef.current) return;
     if (latest < 0.25) {
       setActiveIndex(0);
     } else if (latest < 0.5) {
@@ -105,6 +108,29 @@ export function HowWeWork() {
       setActiveIndex(3);
     }
   });
+
+  const handleStepClick = (idx: number) => {
+    isClickingRef.current = true;
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setActiveIndex(idx);
+
+    const el = containerRef.current;
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const absoluteTop = rect.top + scrollTop;
+      const scrollable = el.offsetHeight - window.innerHeight;
+      const ratio = (idx + 0.5) / STEPS.length;
+      window.scrollTo({
+        top: absoluteTop + scrollable * ratio,
+        behavior: "smooth",
+      });
+    }
+
+    timerRef.current = setTimeout(() => {
+      isClickingRef.current = false;
+    }, 800);
+  };
 
   const activeStep = STEPS[activeIndex];
 
@@ -169,7 +195,7 @@ export function HowWeWork() {
                     <button
                       key={step.id}
                       type="button"
-                      onClick={() => setActiveIndex(idx)}
+                      onClick={() => handleStepClick(idx)}
                       className={`group flex w-full items-center gap-4 text-left transition-all duration-300 cursor-pointer ${
                         isActive ? "opacity-100" : "opacity-45 hover:opacity-80"
                       }`}

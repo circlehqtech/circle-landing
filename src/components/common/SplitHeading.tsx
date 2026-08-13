@@ -26,9 +26,10 @@ export function SplitHeading({
 
   return (
     <Tag
+      key={text}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.05 }}
+      viewport={{ once: true, amount: 0 }}
       variants={{ show: { transition: { staggerChildren: 0.045 } } }}
       className={className}>
       

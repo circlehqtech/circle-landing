@@ -7,6 +7,7 @@ import { SolutionsPage } from '../pages/solutions';
 import { AcademyPage } from '../pages/academy';
 import { ConsultationPage } from '../pages/consultation';
 import { BlogPage } from '../pages/blog';
+import { ReadinessPage } from '../pages/readiness';
 
 export function AppRoutes() {
   return (
@@ -17,6 +18,8 @@ export function AppRoutes() {
         <Route path="solutions" element={<SolutionsPage />} />
         <Route path="academy" element={<AcademyPage />} />
         <Route path="consultation" element={<ConsultationPage />} />
+        <Route path="readiness" element={<ReadinessPage />} />
+        <Route path="readiness-check" element={<ReadinessPage />} />
         <Route path="blog" element={<BlogPage />} />
         <Route path="*" element={<HomePage />} />
       </Route>

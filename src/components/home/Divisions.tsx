@@ -131,106 +131,108 @@ function DivisionCard({
   };
 
   return (
-    <motion.article
-      ref={ref}
-      id={division.id}
-      data-sage-track={division.title}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.12,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      onMouseMove={handleMove}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={reset}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
-      tabIndex={0}
-      style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className={`group relative flex flex-col overflow-hidden rounded-2xl border p-6 sm:p-8 transition-colors duration-300 [transform-style:preserve-3d] ${
-        hovered
-          ? "border-hq-red/60 bg-hq-panel"
-          : "border-hq-line bg-white/[0.015]"
-      }`}
+    <Link
+      to={division.link}
+      aria-label={division.title}
+      className="block group text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-hq-red focus-visible:ring-offset-2 focus-visible:ring-offset-hq-black rounded-2xl h-full"
     >
-      {/* Cursor spotlight */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(224,20,44,0.16), transparent 70%)",
+      <motion.article
+        ref={ref}
+        id={division.id}
+        data-sage-track={division.title}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{
+          duration: 0.7,
+          delay: index * 0.12,
+          ease: [0.22, 1, 0.36, 1],
         }}
-      />
-
-      {/* Top Card Image Header */}
-      <div
-        className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-hq-line/80 bg-hq-black mb-6"
-        style={{ transform: "translateZ(25px)" }}
+        onMouseMove={handleMove}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={reset}
+        onFocus={() => setHovered(true)}
+        onBlur={() => setHovered(false)}
+        style={{ rotateX, rotateY, transformPerspective: 900 }}
+        className={`relative flex h-full flex-col overflow-hidden rounded-2xl border p-6 sm:p-8 transition-colors duration-300 [transform-style:preserve-3d] cursor-pointer ${
+          hovered
+            ? "border-hq-red/60 bg-hq-panel"
+            : "border-hq-line bg-white/[0.015]"
+        }`}
       >
-        <img
-          src={division.image}
-          alt={division.title}
-          className="h-full w-full object-cover opacity-75 group-hover:scale-105 group-hover:opacity-95 transition-all duration-700 ease-out"
+        {/* Cursor spotlight */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background:
+              "radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(224,20,44,0.16), transparent 70%)",
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-hq-panel via-hq-panel/30 to-transparent" />
-        <div className="absolute top-3.5 left-3.5 font-mono text-[11px] font-bold tracking-widest text-white/90 bg-hq-black/80 backdrop-blur-md border border-white/10 rounded-full px-3.5 py-1">
-          {division.index}
-        </div>
-        <div className="absolute top-3.5 right-3.5 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-hq-black/80 text-white backdrop-blur-md transition-colors duration-300 group-hover:border-hq-red group-hover:bg-hq-red">
-          <Icon size={16} />
-        </div>
-      </div>
 
-      <h3
-        className="relative font-display text-2xl sm:text-3xl font-semibold tracking-tight text-white"
-        style={{ transform: "translateZ(40px)" }}
-      >
-        {division.title}
-      </h3>
-      <p
-        className="relative mt-3 text-sm sm:text-base leading-relaxed text-hq-mute"
-        style={{ transform: "translateZ(20px)" }}
-      >
-        {division.blurb}
-      </p>
-
-      <ul
-        className="relative mt-6 flex flex-wrap gap-2"
-        style={{ transform: "translateZ(25px)" }}
-      >
-        {division.capabilities.map((cap, i) => (
-          <motion.li
-            key={cap}
-            animate={hovered ? { y: -2 } : { y: 0 }}
-            transition={{
-              delay: i * 0.04,
-              type: "spring",
-              stiffness: 300,
-              damping: 20,
-            }}
-            className="rounded-full border border-hq-line px-3.5 py-1 font-mono text-[10px] uppercase tracking-widest text-hq-mute transition-colors duration-300 group-hover:border-hq-red/40 group-hover:text-white"
-          >
-            {cap}
-          </motion.li>
-        ))}
-      </ul>
-
-      <div
-        className="relative mt-auto pt-8"
-        style={{ transform: "translateZ(30px)" }}
-      >
-        <Link
-          to={division.link}
-          className="inline-flex items-center gap-2 font-medium text-sm text-white hover:text-hq-red transition-colors group-hover:translate-x-1 duration-200"
+        {/* Top Card Image Header */}
+        <div
+          className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-hq-line/80 bg-hq-black mb-6"
+          style={{ transform: "translateZ(25px)" }}
         >
-          <span className="h-px w-6 bg-hq-red transition-all duration-300 group-hover:w-10" />
-          {division.ctaText}
-        </Link>
-      </div>
-    </motion.article>
+          <img
+            src={division.image}
+            alt={division.title}
+            className="h-full w-full object-cover opacity-75 group-hover:scale-105 group-hover:opacity-95 transition-all duration-700 ease-out"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-hq-panel via-hq-panel/30 to-transparent" />
+          <div className="absolute top-3.5 left-3.5 font-mono text-[11px] font-bold tracking-widest text-white/90 bg-hq-black/80 backdrop-blur-md border border-white/10 rounded-full px-3.5 py-1">
+            {division.index}
+          </div>
+          <div className="absolute top-3.5 right-3.5 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-hq-black/80 text-white backdrop-blur-md transition-colors duration-300 group-hover:border-hq-red group-hover:bg-hq-red">
+            <Icon size={16} />
+          </div>
+        </div>
+
+        <h3
+          className="relative font-display text-2xl sm:text-3xl font-semibold tracking-tight text-white group-hover:text-hq-red transition-colors duration-200"
+          style={{ transform: "translateZ(40px)" }}
+        >
+          {division.title}
+        </h3>
+        <p
+          className="relative mt-3 text-sm sm:text-base leading-relaxed text-hq-mute"
+          style={{ transform: "translateZ(20px)" }}
+        >
+          {division.blurb}
+        </p>
+
+        <ul
+          className="relative mt-6 flex flex-wrap gap-2"
+          style={{ transform: "translateZ(25px)" }}
+        >
+          {division.capabilities.map((cap, i) => (
+            <motion.li
+              key={cap}
+              animate={hovered ? { y: -2 } : { y: 0 }}
+              transition={{
+                delay: i * 0.04,
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+              }}
+              className="rounded-full border border-hq-line px-3.5 py-1 font-mono text-[10px] uppercase tracking-widest text-hq-mute transition-colors duration-300 group-hover:border-hq-red/40 group-hover:text-white"
+            >
+              {cap}
+            </motion.li>
+          ))}
+        </ul>
+
+        <div
+          className="relative mt-auto pt-8"
+          style={{ transform: "translateZ(30px)" }}
+        >
+          <span className="inline-flex items-center gap-2 font-medium text-sm text-white group-hover:text-hq-red transition-colors duration-200">
+            <span className="h-px w-6 bg-hq-red transition-all duration-300 group-hover:w-10" />
+            {division.ctaText}
+          </span>
+        </div>
+      </motion.article>
+    </Link>
   );
 }

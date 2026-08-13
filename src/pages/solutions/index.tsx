@@ -191,7 +191,7 @@ export function SolutionsPage() {
               What We Build
             </p>
             <h2 className="font-display text-3xl font-semibold text-white sm:text-5xl">
-              Representative Systems & Infrastructures
+              Our Systems & Infrastructures
             </h2>
             <p className="mt-4 text-hq-mute text-base leading-relaxed">
               We do not work from a fixed list of offerings, because no two

@@ -9,7 +9,13 @@ import { CursorField } from "../common/CursorField";
 import { MagneticButton } from "../common/MagneticButton";
 import { HoverRevealWord, type RevealMedia } from "../common/HoverRevealWord";
 
-type Word = { text: string; muted?: boolean; media?: RevealMedia };
+type Word = {
+  text: string;
+  muted?: boolean;
+  highlighted?: boolean;
+  hoverable?: boolean;
+  media?: RevealMedia | RevealMedia[];
+};
 
 const MEDIA = {
   orb: {
@@ -34,22 +40,21 @@ const MEDIA = {
   },
 } satisfies Record<string, RevealMedia>;
 
-const LINE_ONE: Word[] = [{ text: "One" }, { text: "HQ.", media: MEDIA.orb }];
+const LINE_ONE: Word[] = [{ text: "One" }, { text: "HQ.", hoverable: true }];
 
 const LINE_TWO: Word[] = [
-  { text: "Two", muted: true },
-  { text: "Ways", muted: true },
+  { text: "Two", highlighted: true },
+  { text: "Ways", highlighted: true },
   { text: "to", muted: true },
-  { text: "Run", media: MEDIA.systems },
+  { text: "Run", hoverable: true },
   { text: "Your" },
-  { text: "Business", media: MEDIA.marketing },
-  { text: "Smarter.", media: MEDIA.academy },
+  { text: "Business", hoverable: true },
+  { text: "Smarter.", media: [MEDIA.systems, MEDIA.academy] },
 ];
 
 const PILLS = [
   { label: "AI Solutions", href: "/solutions" },
   { label: "Circle Academy", href: "/academy" },
-  { label: "Consultation", href: "/consultation" },
 ];
 
 export function Hero() {
@@ -136,9 +141,8 @@ export function Hero() {
             transition={{ delay: 0.9, duration: 0.7, ease: "easeOut" }}
             className="max-w-xl text-base leading-relaxed text-hq-mute sm:text-lg"
           >
-            Circle HQ exists to solve business problems through smart AI
-            solutions. Circle AI Solutions builds the systems your operation
-            runs on. Circle Academy trains the people who run them.
+            Circle HQ exists to make businesses run smarter. We build the
+            systems and train the team who runs them.
           </motion.p>
 
           <motion.div
@@ -188,8 +192,14 @@ export function Hero() {
 }
 
 function SplitWord({ word, startIndex }: { word: Word; startIndex: number }) {
+  const colorClass = word.highlighted
+    ? "text-hq-red"
+    : word.muted
+      ? "text-hq-mute"
+      : "";
+
   const chars = (
-    <span className={`inline-flex ${word.muted ? "text-hq-mute" : ""}`}>
+    <span className={`inline-flex ${colorClass}`}>
       {word.text.split("").map((char, i) => (
         <span
           key={`${char}-${i}`}
@@ -214,7 +224,7 @@ function SplitWord({ word, startIndex }: { word: Word; startIndex: number }) {
 
   return (
     <span className="mr-[0.22em] inline-block">
-      {word.media ? (
+      {word.hoverable || word.media ? (
         <HoverRevealWord media={word.media}>{chars}</HoverRevealWord>
       ) : (
         chars

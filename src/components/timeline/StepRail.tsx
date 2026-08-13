@@ -56,22 +56,21 @@ export function StepRail({
                 aria-selected={active}
                 aria-controls="step-panel"
                 onClick={() => onSelect(i)}
-                onFocus={() => onSelect(i)}
-                className="group flex w-full items-center gap-5 rounded-xl pr-2 text-left outline-none focus-visible:ring-2 focus-visible:ring-hq-red"
+                className="group flex w-full cursor-pointer items-center gap-5 rounded-xl pr-2 text-left outline-none transition-transform active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-hq-red"
               >
                 <motion.span
-                  animate={{ scale: active ? 1.06 : 1 }}
+                  animate={{ scale: active ? 1.08 : 1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                  className={`relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-300 ${
+                  className={`relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                     active
-                      ? "border-hq-red bg-[#160000] text-hq-red shadow-[0_0_24px_rgba(255,0,0,0.45)]"
+                      ? "border-hq-red bg-[#160000] text-hq-red shadow-[0_0_24px_rgba(255,0,0,0.45)] ring-2 ring-hq-red/30"
                       : passed
-                        ? "border-hq-red/40 bg-[#0F0F0F] text-hq-red/70"
-                        : "border-white/10 bg-[#121212] text-zinc-500 group-hover:border-white/25"
+                        ? "border-hq-red/40 bg-[#0F0F0F] text-hq-red/70 group-hover:border-hq-red/70 group-hover:text-hq-red"
+                        : "border-white/10 bg-[#121212] text-zinc-500 group-hover:border-white/30 group-hover:text-zinc-300"
                   }`}
                 >
                   <Icon
-                    className="h-5 w-5"
+                    className="h-5 w-5 transition-transform duration-300 group-hover:scale-110"
                     strokeWidth={1.7}
                     aria-hidden="true"
                   />
@@ -88,10 +87,10 @@ export function StepRail({
                   )}
                 </motion.span>
 
-                <span className="min-w-0">
+                <span className="min-w-0 flex-1">
                   <span
                     className={`block font-display text-[10px] font-semibold tracking-[0.22em] transition-colors duration-300 ${
-                      active ? "text-hq-red" : "text-zinc-600"
+                      active ? "text-hq-red font-bold" : "text-zinc-600 group-hover:text-zinc-400"
                     }`}
                   >
                     STEP {step.index}
@@ -100,7 +99,7 @@ export function StepRail({
                     className={`mt-0.5 block font-display text-base font-semibold tracking-tight transition-colors duration-300 ${
                       active
                         ? "text-white"
-                        : "text-zinc-500 group-hover:text-zinc-300"
+                        : "text-zinc-500 group-hover:text-zinc-200"
                     }`}
                   >
                     {step.shortTitle}

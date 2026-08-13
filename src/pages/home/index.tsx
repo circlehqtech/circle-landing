@@ -20,7 +20,7 @@ export function HomePage() {
       <Divisions />
       <WhereTheyMeet />
       <Standard />
-      <Statement />
+      {/* <Statement /> */}
       <ProcessRailSection />
       <HorizontalGallery />
       <YouTubeSection />

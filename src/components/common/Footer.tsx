@@ -26,9 +26,10 @@ const COLUMNS = [
   {
     title: 'Connect',
     links: [
-      { label: 'hello@circlehq.co', href: 'mailto:hello@circlehq.co' },
-      { label: 'LinkedIn', href: 'https://linkedin.com' },
-      { label: 'Instagram', href: 'https://instagram.com' }
+      { label: 'hello@circlehqcompany.com', href: 'mailto:hello@circlehqcompany.com' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/circlehq-company' },
+      { label: 'Instagram (Company)', href: 'https://www.instagram.com/circlehq.company?igsh=MWl3cXFtaWk4bGV2dw%3D%3D&utm_source=qr' },
+      { label: 'Instagram (Academy)', href: 'https://www.instagram.com/circlehq_academy?igsh=ajBwc2VnYjFuOTJ1' }
     ]
   }
 ];

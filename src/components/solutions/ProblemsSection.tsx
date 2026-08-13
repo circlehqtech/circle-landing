@@ -110,32 +110,29 @@ export function ProblemsSection() {
             />
           </div>
 
-          {/* Problems */}
-          <div
-            className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-y-7"
-            onMouseLeave={() => setActiveId(null)}
-          >
-            {problems.map((problem, i) => (
-              <ProblemTile
-                key={problem.id}
-                problem={problem}
-                active={activeId === problem.id}
-                dimmed={activeId !== null && activeId !== problem.id}
-                solved={activeId === problem.id && phase === "answer"}
-                anchorRef={register(problem.id)}
-                onActivate={() => setActiveId(problem.id)}
-                onRelease={() =>
-                  setActiveId((current) =>
-                    current === problem.id ? null : current,
-                  )
-                }
-                className={
-                  i % 2 === 0
-                    ? "lg:col-span-7 lg:col-start-1"
-                    : "lg:col-span-7 lg:col-start-6"
-                }
-              />
-            ))}
+          {/* Problems - One Column on Left, AI Assistant on Right */}
+          <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
+            <div
+              className="space-y-5 lg:col-span-7"
+              onMouseLeave={() => setActiveId(null)}
+            >
+              {problems.map((problem) => (
+                <ProblemTile
+                  key={problem.id}
+                  problem={problem}
+                  active={activeId === problem.id}
+                  dimmed={activeId !== null && activeId !== problem.id}
+                  solved={activeId === problem.id && phase === "answer"}
+                  anchorRef={register(problem.id)}
+                  onActivate={() => setActiveId(problem.id)}
+                  onRelease={() =>
+                    setActiveId((current) =>
+                      current === problem.id ? null : current,
+                    )
+                  }
+                />
+              ))}
+            </div>
           </div>
 
           <FloatingAssistant

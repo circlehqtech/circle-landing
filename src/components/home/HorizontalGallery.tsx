@@ -1,44 +1,35 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform, type MotionValue } from 'framer-motion';
 
-type Shot = { src: string; label: string; };
+import img2809 from '../../assets/h-image/IMG_2809.webp';
+import img2855 from '../../assets/h-image/IMG_2855.webp';
+import img2919 from '../../assets/h-image/IMG_2919.webp';
+import img2997 from '../../assets/h-image/IMG_2997.webp';
+import img3050 from '../../assets/h-image/IMG_3050.webp';
+import img3051 from '../../assets/h-image/IMG_3051.webp';
+import img3089 from '../../assets/h-image/IMG_3089.webp';
+import img3097 from '../../assets/h-image/IMG_3097.webp';
+import img3140 from '../../assets/h-image/IMG_3140.webp';
+import img3156 from '../../assets/h-image/IMG_3156.webp';
+import img3159 from '../../assets/h-image/IMG_3159.webp';
+
+type Shot = { src: string; label: string };
 
 const ROW_ONE: Shot[] = [
-  {
-    src: "/04142454-c400-4763-b6ad-67e42d6533fd.jpg",
-    label: 'The studio · Lagos'
-  },
-  {
-    src: "/3a189f97-4d04-43b7-ad66-524fad486114.jpg",
-    label: 'Live operations dashboard'
-  },
-  {
-    src: "/fc1b4738-d5c0-44fa-80be-c83cd0a3a8d1.jpg",
-    label: 'Workflow automation map'
-  },
-  {
-    src: "/0ebc1652-0ca4-4ab7-93ef-92e86aa33b02.jpg",
-    label: 'Systems research'
-  }
+  { src: img2809, label: 'The Studio · Circle HQ' },
+  { src: img2855, label: 'Engineering Sprint' },
+  { src: img2919, label: 'Architecture Review' },
+  { src: img2997, label: 'Live Operations Dashboard' },
+  { src: img3050, label: 'Systems Research Lab' },
+  { src: img3051, label: 'AI Strategy Session' },
 ];
 
 const ROW_TWO: Shot[] = [
-  {
-    src: "/e09b6faa-e971-40ef-a82d-f1711d7ff579.jpg",
-    label: 'Academy workshop'
-  },
-  {
-    src: "/9676547c-bb5b-49a6-b12f-91640f0ea60b.jpg",
-    label: 'Team training day'
-  },
-  {
-    src: "/8ddb7eec-73d5-4524-a4d4-d16ae945ad64.jpg",
-    label: 'Agent architecture'
-  },
-  {
-    src: "/2716ccb6-35bb-43e3-b2b5-908f2d8c7302.jpg",
-    label: 'Client discovery'
-  }
+  { src: img3089, label: 'Team Collaboration' },
+  { src: img3097, label: 'Workflow Engine Teardown' },
+  { src: img3140, label: 'Deployment & Telemetry' },
+  { src: img3156, label: 'Agent Build Lab' },
+  { src: img3159, label: 'Client Discovery' },
 ];
 
 export function HorizontalGallery() {

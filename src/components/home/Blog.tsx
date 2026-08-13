@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { ArrowUpRightIcon } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowUpRightIcon, RefreshCwIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BlogCard } from '../blog/BlogCard';
+import { BlogCard, BlogCardSkeleton } from '../blog/BlogCard';
 import type { BlogPost } from '../blog/BlogCard';
 import { ArticleModal } from '../blog/ArticleModal';
+import { fetchWpPosts } from '../../services/wordpress';
 
-const HOMEPAGE_POSTS: BlogPost[] = [
+const FALLBACK_POSTS: BlogPost[] = [
   {
     id: 'home-post-1',
     slug: 'three-questions-before-ai-agent',
@@ -42,13 +43,35 @@ const HOMEPAGE_POSTS: BlogPost[] = [
 ];
 
 export function Blog() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
+
+  const loadPosts = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const fetched = await fetchWpPosts();
+      setPosts(fetched.slice(0, 3));
+    } catch (err) {
+      console.error('Error fetching home blog posts:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load posts');
+      setPosts(FALLBACK_POSTS);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadPosts();
+  }, []);
 
   return (
     <section
       id="insights"
       data-sage-track="Insights"
-      className="relative bg-[#e8e3d9] py-20 text-hq-ink sm:py-28">
+      className="relative bg-hq-black border-t border-hq-line py-20 text-white sm:py-28">
       
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         {/* Header */}
@@ -57,14 +80,14 @@ export function Blog() {
             <span className="inline-block rounded-full bg-hq-red px-3.5 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white">
               INSIGHTS
             </span>
-            <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-hq-ink sm:text-5xl">
+            <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl">
               What we learned <span className="text-hq-red">building it.</span>
             </h2>
           </div>
 
           <Link
             to="/blog"
-            className="group inline-flex items-center gap-2 self-start rounded-full bg-[#070708] px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-hq-red hover:-translate-y-0.5">
+            className="group inline-flex items-center gap-2 self-start rounded-full border border-hq-line bg-hq-panel px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:border-hq-red hover:bg-hq-red hover:-translate-y-0.5">
             All articles
             <ArrowUpRightIcon
               size={15}
@@ -74,19 +97,50 @@ export function Blog() {
         </div>
 
         {/* Divider line */}
-        <div className="mb-12 border-b border-hq-ink/15" />
+        <div className="mb-12 border-b border-hq-line" />
 
-        {/* 3-Column Card Grid */}
-        <div className="grid gap-6 md:grid-cols-3">
-          {HOMEPAGE_POSTS.map((post, i) => (
-            <BlogCard
-              key={post.id}
-              post={post}
-              index={i}
-              onClick={() => setActivePost(post)}
-            />
-          ))}
-        </div>
+        {/* Loading State */}
+        {loading ? (
+          <div className="grid gap-6 md:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <BlogCardSkeleton key={i} index={i} />
+            ))}
+          </div>
+        ) : error ? (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between rounded-xl border border-hq-line bg-white/[0.02] p-4 text-xs font-mono text-hq-mute">
+              <span>API connection issue — showing cached articles.</span>
+              <button
+                type="button"
+                onClick={loadPosts}
+                className="inline-flex items-center gap-1.5 rounded-full border border-hq-line bg-hq-panel px-3 py-1 text-white hover:border-hq-red hover:text-hq-red transition-colors"
+              >
+                <RefreshCwIcon size={12} /> Retry API
+              </button>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {posts.map((post, i) => (
+                <BlogCard
+                  key={post.id}
+                  post={post}
+                  index={i}
+                  onClick={() => setActivePost(post)}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-3">
+            {posts.map((post, i) => (
+              <BlogCard
+                key={post.id}
+                post={post}
+                index={i}
+                onClick={() => setActivePost(post)}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <ArticleModal

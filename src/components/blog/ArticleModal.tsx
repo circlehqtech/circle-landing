@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { XIcon, ArrowRightIcon, CalendarIcon, ClockIcon, Share2Icon } from 'lucide-react';
+import { XIcon, ArrowRightIcon, CalendarIcon, ClockIcon, ExternalLinkIcon, UserIcon } from 'lucide-react';
 import type { BlogPost } from './BlogCard';
 import { Link } from 'react-router-dom';
 
@@ -51,6 +51,16 @@ export function ArticleModal({ post, onClose }: ArticleModalProps) {
               </span>
               
               <div className="flex items-center gap-3">
+                {post.link && (
+                  <a
+                    href={post.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-hq-ink/15 bg-white px-3 py-1 font-mono text-[11px] text-hq-ink/80 transition-colors hover:border-hq-red hover:text-hq-red"
+                  >
+                    View Source <ExternalLinkIcon size={12} />
+                  </a>
+                )}
                 <button
                   type="button"
                   onClick={onClose}
@@ -74,15 +84,26 @@ export function ArticleModal({ post, onClose }: ArticleModalProps) {
                     <ClockIcon size={14} />
                     {post.readTime}
                   </span>
+                  {post.author?.name && (
+                    <>
+                      <span>•</span>
+                      <span className="inline-flex items-center gap-1.5 text-hq-ink/60">
+                        <UserIcon size={14} />
+                        {post.author.name}
+                      </span>
+                    </>
+                  )}
                 </div>
 
                 <h1 className="mt-4 font-display text-2xl sm:text-4xl font-bold leading-tight tracking-tight text-hq-ink">
                   {post.title}
                 </h1>
 
-                <p className="mt-4 text-base sm:text-lg leading-relaxed text-hq-ink/75 font-medium">
-                  {post.excerpt}
-                </p>
+                {post.excerpt && (
+                  <p className="mt-4 text-base sm:text-lg leading-relaxed text-hq-ink/75 font-medium border-l-2 border-hq-red pl-4">
+                    {post.excerpt}
+                  </p>
+                )}
               </div>
 
               {/* Cover Image */}
@@ -94,39 +115,20 @@ export function ArticleModal({ post, onClose }: ArticleModalProps) {
                 />
               </div>
 
-              {/* Article Content Paragraphs */}
-              <div className="prose prose-lg max-w-none space-y-6 text-base leading-relaxed text-hq-ink/80">
-                {post.content ? (
+              {/* Article Content */}
+              <div className="wp-post-content space-y-6 text-base leading-relaxed text-hq-ink/80">
+                {post.contentHtml ? (
+                  <div
+                    className="prose prose-lg max-w-none space-y-4 text-hq-ink/80 [&>p]:leading-relaxed [&>h2]:text-hq-ink [&>h2]:font-display [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:pt-4 [&>h3]:text-hq-ink [&>h3]:font-display [&>h3]:text-xl [&>h3]:font-semibold [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:space-y-2 [&>a]:text-hq-red [&>a]:underline [&>figure]:my-6 [&>figure_img]:rounded-xl [&>figure_img]:border [&>figure_img]:border-hq-ink/15"
+                    dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+                  />
+                ) : post.content ? (
                   post.content.map((paragraph, i) => (
-                    <p key={i} className="text-base sm:text-lg leading-relaxed">
+                    <p key={i} className="text-base sm:text-lg leading-relaxed text-hq-ink/80">
                       {paragraph}
                     </p>
                   ))
-                ) : (
-                  <>
-                    <p className="text-base sm:text-lg leading-relaxed">
-                      When evaluating operational processes for AI automation, the most common trap is jumping straight to technology before establishing clear brief parameters. Most automation initiatives fail during scoping, not engineering.
-                    </p>
-                    
-                    <div className="my-6 rounded-2xl border-l-4 border-hq-red bg-hq-boneDeep p-6 text-hq-ink">
-                      <p className="font-display text-lg font-semibold italic text-hq-ink">
-                        "If a process cannot be described deterministically by a domain human expert, an AI agent will only accelerate the confusion."
-                      </p>
-                    </div>
-
-                    <h2 className="font-display text-xl sm:text-2xl font-bold text-hq-ink pt-2">
-                      The Scoping Filter Every Brief Must Pass
-                    </h2>
-                    <p>
-                      Before writing a single line of orchestration code or configuring vector indices, we pass every workflow through three mandatory scoping filters:
-                    </p>
-                    <ul className="list-disc pl-6 space-y-2 text-hq-ink/90">
-                      <li><strong>Operational Drag Identification:</strong> Exactly where is human capital spent on non-creative data movement?</li>
-                      <li><strong>Determinism & Schema Boundaries:</strong> Is the input structured enough to yield reliable, schema-validated outputs?</li>
-                      <li><strong>Human-in-the-Loop Ownership:</strong> Who reviews low-confidence outputs, and what is the exact escalation path?</li>
-                    </ul>
-                  </>
-                )}
+                ) : null}
               </div>
 
               {/* Modal Bottom CTA */}
