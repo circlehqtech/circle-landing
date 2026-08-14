@@ -1,0 +1,20 @@
+DirectoryIndex index.html
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Keep the Hostinger PHP API and the WordPress CMS outside the SPA rewrite.
+  RewriteRule ^api(?:/|$) - [L]
+  RewriteRule ^cms\.circlehqcompany\.com(?:/|$) - [L]
+
+  # Serve real files and directories normally.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Send client-side routes such as /readiness and /solutions to React.
+  RewriteRule ^ index.html [L]
+</IfModule>

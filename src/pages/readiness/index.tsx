@@ -4,11 +4,9 @@ import { Link } from "react-router-dom";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
-  CheckIcon,
   DownloadIcon,
   MailIcon,
   SparklesIcon,
-  ShieldCheckIcon,
 } from "lucide-react";
 import { CursorField } from "../../components/common/CursorField";
 import { READINESS_QUESTIONS } from "../../data/readinessQuestions";
@@ -29,6 +27,7 @@ export function ReadinessPage() {
 
   const [emailSent, setEmailSent] = useState(false);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const [isDownloadingPDF, setIsDownloadingPDF] = useState(false);
 
   const totalQuestions = READINESS_QUESTIONS.length;
@@ -142,6 +141,7 @@ export function ReadinessPage() {
   const handleSendEmail = async () => {
     if (!femail || isSendingEmail || emailSent) return;
     setIsSendingEmail(true);
+    setEmailError("");
 
     const result = await sendReadinessScoreEmail({
       user_name: fname,
@@ -153,12 +153,15 @@ export function ReadinessPage() {
       tier_name: tierData.tierName,
       tier_desc: tierData.tierDesc,
       insights: tierData.insights,
-      company_email: "hello@circlehqcompany.com",
     });
 
     setIsSendingEmail(false);
     if (result.success) {
       setEmailSent(true);
+    } else {
+      setEmailError(
+        result.error || "We could not send your report. Please try again.",
+      );
     }
   };
 
@@ -571,6 +574,11 @@ export function ReadinessPage() {
                   : "Download Result as PDF"}
               </button>
             </div>
+            {emailError && (
+              <p role="alert" className="text-sm text-red-400">
+                {emailError}
+              </p>
+            )}
           </motion.div>
         )}
       </section>

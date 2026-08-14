@@ -5,6 +5,7 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+circle-email-config.php
 .next
 out
 coverage
