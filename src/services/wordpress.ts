@@ -20,7 +20,7 @@ export type WpPost = {
   content: { rendered: string };
   categories: number[];
   _embedded?: {
-    'wp:featuredmedia'?: Array<{
+    "wp:featuredmedia"?: Array<{
       source_url?: string;
       alt_text?: string;
       media_details?: {
@@ -31,11 +31,13 @@ export type WpPost = {
       name?: string;
       avatar_urls?: Record<string, string>;
     }>;
-    'wp:term'?: Array<Array<{
-      id: number;
-      name: string;
-      slug: string;
-    }>>;
+    "wp:term"?: Array<
+      Array<{
+        id: number;
+        name: string;
+        slug: string;
+      }>
+    >;
   };
 };
 
@@ -57,15 +59,15 @@ export type ProcessedPost = {
   link: string;
 };
 
-const WP_BASE_URL = 'https://circlehqcompany.com/wp-json/wp/v2';
-const FALLBACK_IMAGE = '/blog_ai_solutions_sphere.png';
+const WP_BASE_URL = "https://cms.circlehqcompany.com/wp-json/wp/v2";
+const FALLBACK_IMAGE = "/blog_ai_solutions_sphere.png";
 
 /**
  * Decodes HTML entities (e.g., &#8217; -> ', &amp; -> &)
  */
 export function decodeHtmlEntities(html: string): string {
-  if (!html) return '';
-  const txt = document.createElement('textarea');
+  if (!html) return "";
+  const txt = document.createElement("textarea");
   txt.innerHTML = html;
   return txt.value;
 }
@@ -74,9 +76,9 @@ export function decodeHtmlEntities(html: string): string {
  * Strips HTML tags for excerpt display
  */
 export function stripHtmlTags(html: string): string {
-  if (!html) return '';
+  if (!html) return "";
   const decoded = decodeHtmlEntities(html);
-  return decoded.replace(/<[^>]*>?/gm, '').trim();
+  return decoded.replace(/<[^>]*>?/gm, "").trim();
 }
 
 /**
@@ -87,10 +89,10 @@ export function formatDate(dateString: string): string {
     const d = new Date(dateString);
     if (isNaN(d.getTime())) return dateString;
     return d
-      .toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
+      .toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
       })
       .toUpperCase();
   } catch {
@@ -112,22 +114,27 @@ export function calculateReadTime(contentHtml: string): string {
  * Transforms raw WP REST API Post object into a clean, UI-ready ProcessedPost object
  */
 export function transformWpPost(post: WpPost): ProcessedPost {
-  const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+  const featuredMedia = post._embedded?.["wp:featuredmedia"]?.[0];
   const coverUrl =
     featuredMedia?.media_details?.sizes?.large?.source_url ||
     featuredMedia?.source_url ||
     FALLBACK_IMAGE;
 
   const authorObj = post._embedded?.author?.[0];
-  const authorName = authorObj?.name ? decodeHtmlEntities(authorObj.name) : 'Circle HQ Team';
-  const authorAvatar = authorObj?.avatar_urls?.['96'] || authorObj?.avatar_urls?.['48'];
+  const authorName = authorObj?.name
+    ? decodeHtmlEntities(authorObj.name)
+    : "Circle HQ Team";
+  const authorAvatar =
+    authorObj?.avatar_urls?.["96"] || authorObj?.avatar_urls?.["48"];
 
-  const categoryObj = post._embedded?.['wp:term']?.[0]?.[0];
-  const categoryName = categoryObj?.name ? decodeHtmlEntities(categoryObj.name) : 'INSIGHTS';
+  const categoryObj = post._embedded?.["wp:term"]?.[0]?.[0];
+  const categoryName = categoryObj?.name
+    ? decodeHtmlEntities(categoryObj.name)
+    : "INSIGHTS";
 
-  const title = decodeHtmlEntities(post.title?.rendered || '');
-  const excerpt = stripHtmlTags(post.excerpt?.rendered || '');
-  const contentHtml = post.content?.rendered || '';
+  const title = decodeHtmlEntities(post.title?.rendered || "");
+  const excerpt = stripHtmlTags(post.excerpt?.rendered || "");
+  const contentHtml = post.content?.rendered || "";
   const dateFormatted = formatDate(post.date);
   const readTime = calculateReadTime(contentHtml);
 
@@ -154,9 +161,13 @@ export function transformWpPost(post: WpPost): ProcessedPost {
  * Fetches all active WordPress post categories
  */
 export async function fetchWpCategories(): Promise<WpCategory[]> {
-  const res = await fetch(`${WP_BASE_URL}/categories?per_page=100&hide_empty=true`);
+  const res = await fetch(
+    `${WP_BASE_URL}/categories?per_page=100&hide_empty=true`,
+  );
   if (!res.ok) {
-    throw new Error(`Failed to fetch categories (${res.status} ${res.statusText})`);
+    throw new Error(
+      `Failed to fetch categories (${res.status} ${res.statusText})`,
+    );
   }
   const categories: WpCategory[] = await res.json();
   return categories
@@ -170,9 +181,11 @@ export async function fetchWpCategories(): Promise<WpCategory[]> {
 /**
  * Fetches WordPress posts dynamically with optional category filtering
  */
-export async function fetchWpPosts(categoryId?: number | string): Promise<ProcessedPost[]> {
+export async function fetchWpPosts(
+  categoryId?: number | string,
+): Promise<ProcessedPost[]> {
   let url = `${WP_BASE_URL}/posts?_embed&per_page=20`;
-  if (categoryId && categoryId !== 'ALL' && typeof categoryId === 'number') {
+  if (categoryId && categoryId !== "ALL" && typeof categoryId === "number") {
     url += `&categories=${categoryId}`;
   }
   const res = await fetch(url);
