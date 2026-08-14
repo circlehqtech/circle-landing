@@ -205,7 +205,7 @@ export function FaqChat() {
                 </motion.ul>
               ) : (
                 <Link
-                  to="/consultation"
+                  to="/consultation#booking"
                   className="inline-flex items-center gap-2 rounded-full bg-hq-red px-5 py-3 text-sm font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-hq-red-deep shadow-md">
                   Book a Consultation
                   <SendHorizontalIcon size={15} />

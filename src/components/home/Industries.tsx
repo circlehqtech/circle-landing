@@ -47,7 +47,7 @@ export function Industries() {
           </div>
 
           <Link
-            to="/consultation"
+            to="/consultation#booking"
             className="group inline-flex items-center gap-2 self-start rounded-full border border-hq-line bg-hq-panel px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:border-hq-red hover:bg-hq-red hover:-translate-y-0.5"
           >
             Get in touch
@@ -90,7 +90,7 @@ export function Industries() {
         <p className="mt-12 text-center font-serif text-sm italic text-zinc-400">
           And pretty much every other industry — if you can't find yours on this list,{' '}
           <Link
-            to="/consultation"
+            to="/consultation#booking"
             className="font-semibold text-hq-red underline underline-offset-4 hover:text-white transition-colors"
           >
             get in touch.

@@ -131,18 +131,18 @@ function AcademyGallery() {
     <section
       ref={ref}
       data-sage-track="Life inside the Academy"
-      className="relative overflow-hidden border-b border-hq-ink/10 bg-hq-boneDeep py-28 sm:py-40"
+      className="relative overflow-hidden border-b border-hq-line bg-[#0a0a0c] py-28 sm:py-40"
     >
       <div className="mx-auto mb-12 flex max-w-7xl flex-col gap-4 px-5 sm:px-8 md:flex-row md:items-end md:justify-between">
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-hq-red/30 bg-hq-red/[0.08] px-3.5 py-1.5 font-mono text-xs text-hq-red font-semibold mb-3">
             <CameraIcon size={14} /> Life inside the Academy
           </span>
-          <h2 className="max-w-2xl font-display text-3xl font-semibold leading-[1.05] tracking-[-0.03em] text-hq-ink sm:text-5xl">
+          <h2 className="max-w-2xl font-display text-3xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl">
             The work, the room, and the people in it.
           </h2>
         </div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-hq-ink/60">
+        <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-hq-mute">
           Scroll to move the rails
         </p>
       </div>
@@ -153,8 +153,8 @@ function AcademyGallery() {
         <GalleryRail shots={ROW_THREE} x={xLeft2} />
       </div>
 
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-hq-boneDeep to-transparent sm:w-28" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-hq-boneDeep to-transparent sm:w-28" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#0a0a0c] to-transparent sm:w-28" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#0a0a0c] to-transparent sm:w-28" />
     </section>
   );
 }
@@ -174,7 +174,7 @@ function GalleryRail({
       {items.map((shot, i) => (
         <figure
           key={`${shot.label}-${i}`}
-          className={`group relative h-44 w-64 shrink-0 overflow-hidden rounded-2xl border border-hq-ink/15 sm:h-60 sm:w-[22rem] ${
+          className={`group relative h-72 w-52 shrink-0 overflow-hidden rounded-2xl border border-hq-line sm:h-[25rem] sm:w-[17rem] ${
             reverse ? "rotate-[0.6deg]" : "-rotate-[0.6deg]"
           }`}
         >
@@ -183,10 +183,10 @@ function GalleryRail({
             alt={shot.label}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+            className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
           />
-          <span className="absolute inset-0 bg-black/30 transition-opacity duration-500 group-hover:opacity-0" />
-          <figcaption className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-black/75 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white backdrop-blur-sm">
+          <span className="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:opacity-0" />
+          <figcaption className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-black/75 px-3 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-hq-red" />
             {shot.label}
           </figcaption>
@@ -201,11 +201,11 @@ export function AcademyPage() {
   const [activeProgramCard, setActiveProgramCard] = useState<number>(0);
 
   return (
-    <div className="relative bg-hq-bone text-hq-ink min-h-screen">
+    <div className="relative bg-hq-black text-white min-h-screen">
       {/* Hero */}
       <section className="relative isolate overflow-hidden pt-32 pb-16">
-        <CursorField theme="light" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-hq-bone to-transparent" />
+        <CursorField theme="dark" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-hq-black to-transparent" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8">
           <div className="max-w-4xl">
@@ -221,14 +221,14 @@ export function AcademyPage() {
               text="Building the Future of Workforce."
               muted={["Future", "of", "Workforce."]}
               mutedClassName="text-hq-red"
-              className="font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-hq-ink sm:text-6xl"
+              className="font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl"
             />
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-hq-ink/75"
+              className="mt-6 max-w-2xl text-lg leading-relaxed text-hq-mute"
             >
               Practical AI education for Nigerian professionals and
               organisations — from teams learning to work alongside AI, to
@@ -238,7 +238,7 @@ export function AcademyPage() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <MagneticButton
-                href="/consultation"
+                href="/consultation#booking"
                 className="inline-flex items-center gap-2 rounded-full bg-hq-red px-6 py-3.5 text-sm font-medium text-white shadow-md hover:bg-hq-red-deep"
               >
                 Talk to Us About Training <ArrowRightIcon size={16} />
@@ -251,7 +251,7 @@ export function AcademyPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.8 }}
-            className="mt-12 relative overflow-hidden rounded-3xl border border-hq-ink/15 shadow-xl aspect-[21/9]"
+            className="mt-12 relative overflow-hidden rounded-3xl border border-white/10 shadow-xl aspect-[21/9]"
           >
             <img
               src="/academy_workshop_training.png"
@@ -260,7 +260,7 @@ export function AcademyPage() {
               decoding="async"
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-hq-ink/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-hq-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 text-white max-w-lg">
               <span className="font-mono text-xs uppercase tracking-widest text-white bg-hq-red px-3 py-1 rounded-full">
                 Live Corporate Cohort Session
@@ -501,7 +501,7 @@ export function AcademyPage() {
                 </div>
 
                 <a
-                  href="/consultation"
+                  href="/consultation#booking"
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-hq-red hover:underline"
                 >
                   Talk to us about a cohort <ArrowRightIcon size={14} />
@@ -512,10 +512,10 @@ export function AcademyPage() {
         </div>
       </section>
 
-      {/* Free Programmes Section Matching Screenshot */}
+      {/* Free Programmes Section Matching Dark Theme */}
       <section
         id="free-programmes"
-        className="bg-[#eee9e0] py-20 sm:py-28 border-b border-hq-ink/10"
+        className="bg-[#09090b] py-20 sm:py-28 border-b border-hq-line"
       >
         <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
@@ -525,23 +525,15 @@ export function AcademyPage() {
                 FREE PROGRAMMES
               </span>
 
-              <h2 className="mt-6 max-w-md font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-hq-ink sm:text-5xl">
+              <h2 className="mt-6 max-w-md font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl">
                 AI readiness shouldn't depend on{" "}
                 <span className="text-hq-red">who can afford it.</span>
               </h2>
 
-              <p className="mt-6 max-w-md text-sm leading-relaxed text-hq-ink/75">
-                Circle Academy runs free AI literacy training for secondary
-                school students and university students across Nigeria — no
-                fees, no catch.
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-hq-mute">
+                Circle Academy runs AI literacy training for secondary school
+                students and university students across Nigeria.
               </p>
-
-              <a
-                href="/consultation"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#070708] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-hq-red hover:-translate-y-0.5"
-              >
-                Nominate a school &rarr;
-              </a>
             </div>
 
             {/* Right 3 Cards Stack with Hover / Active Red Accent Offset Effect */}
@@ -559,27 +551,27 @@ export function AcademyPage() {
                   }`}
                 />
                 <div
-                  className={`relative flex items-center gap-4 rounded-2xl border border-hq-ink/15 p-5 sm:p-6 shadow-sm transition-all duration-200 ${
+                  className={`relative flex items-center gap-4 rounded-2xl border border-white/10 p-5 sm:p-6 shadow-sm transition-all duration-200 ${
                     activeProgramCard === 0
-                      ? "bg-[#e5dfd2] -translate-x-1 -translate-y-1 shadow-md"
-                      : "bg-[#e5dfd2]/80 group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-[#e5dfd2] group-hover:shadow-md"
+                      ? "bg-[#131316] -translate-x-1 -translate-y-1 shadow-md"
+                      : "bg-[#131316]/80 group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-[#131316] group-hover:shadow-md"
                   }`}
                 >
                   <div
                     className={`h-10 w-10 shrink-0 rounded-full text-white flex items-center justify-center transition-colors duration-200 ${
                       activeProgramCard === 0
                         ? "bg-hq-red shadow-sm"
-                        : "bg-[#070708] group-hover:bg-hq-red"
+                        : "bg-white/10 group-hover:bg-hq-red"
                     }`}
                   >
                     <GraduationCapIcon size={20} />
                   </div>
                   <div>
-                    <h3 className="font-display text-base sm:text-lg font-semibold text-hq-ink">
+                    <h3 className="font-display text-base sm:text-lg font-semibold text-white">
                       Secondary schools
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-hq-ink/75">
-                      Free AI literacy training aligned to Nigeria's NERDC
+                    <p className="mt-1 text-xs leading-relaxed text-hq-mute">
+                      Our CSR AI literacy training aligned to Nigeria's NERDC
                       Digital Technologies curriculum.
                     </p>
                   </div>
@@ -599,26 +591,26 @@ export function AcademyPage() {
                   }`}
                 />
                 <div
-                  className={`relative flex items-center gap-4 rounded-2xl border border-hq-ink/15 p-5 sm:p-6 shadow-sm transition-all duration-200 ${
+                  className={`relative flex items-center gap-4 rounded-2xl border border-white/10 p-5 sm:p-6 shadow-sm transition-all duration-200 ${
                     activeProgramCard === 1
-                      ? "bg-[#e5dfd2] -translate-x-1 -translate-y-1 shadow-md"
-                      : "bg-[#e5dfd2]/80 group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-[#e5dfd2] group-hover:shadow-md"
+                      ? "bg-[#131316] -translate-x-1 -translate-y-1 shadow-md"
+                      : "bg-[#131316]/80 group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:bg-[#131316] group-hover:shadow-md"
                   }`}
                 >
                   <div
                     className={`h-10 w-10 shrink-0 rounded-full text-white flex items-center justify-center transition-colors duration-200 ${
                       activeProgramCard === 1
                         ? "bg-hq-red shadow-sm"
-                        : "bg-[#070708] group-hover:bg-hq-red"
+                        : "bg-white/10 group-hover:bg-hq-red"
                     }`}
                   >
                     <HeartIcon size={18} />
                   </div>
                   <div>
-                    <h3 className="font-display text-base sm:text-lg font-semibold text-hq-ink">
+                    <h3 className="font-display text-base sm:text-lg font-semibold text-white">
                       University students
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-hq-ink/75">
+                    <p className="mt-1 text-xs leading-relaxed text-hq-mute">
                       Extended sessions for undergraduates preparing to enter an
                       AI-shaped job market.
                     </p>
@@ -633,23 +625,23 @@ export function AcademyPage() {
       {/* Closing CTA */}
       <section className="py-20 text-center">
         <div className="mx-auto max-w-3xl px-5 sm:px-8">
-          <h2 className="font-display text-3xl font-semibold text-hq-ink sm:text-4xl">
+          <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl">
             Tell Us What Your Team — or You — Need to Learn.
           </h2>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <MagneticButton
-              href="/consultation"
+              href="/consultation#booking"
               className="inline-flex items-center gap-2 rounded-full bg-hq-red px-6 py-3.5 text-sm font-medium text-white shadow-md hover:bg-hq-red-deep"
             >
               Talk to Us <ArrowRightIcon size={16} />
             </MagneticButton>
-            <MagneticButton
+            {/* <MagneticButton
               href="mailto:hello@circlehqcompany.com?subject=Program%20Outline%20Request"
               strength={0.25}
-              className="inline-flex items-center gap-2 rounded-full border border-hq-ink/20 bg-white px-6 py-3.5 text-sm text-hq-ink hover:border-hq-red hover:text-hq-red transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm text-white hover:border-hq-red hover:text-hq-red transition-colors shadow-sm"
             >
               Download Program Outline <DownloadIcon size={16} />
-            </MagneticButton>
+            </MagneticButton> */}
           </div>
         </div>
       </section>

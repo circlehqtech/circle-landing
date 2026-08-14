@@ -82,17 +82,17 @@ function Rail({
       {items.map((shot, i) =>
         <figure
           key={`${shot.label}-${i}`}
-          className={`group relative h-44 w-64 shrink-0 overflow-hidden rounded-2xl border border-hq-line sm:h-60 sm:w-[22rem] ${
+          className={`group relative h-72 w-52 shrink-0 overflow-hidden rounded-2xl border border-hq-line sm:h-[25rem] sm:w-[17rem] ${
             reverse ? 'rotate-[0.6deg]' : '-rotate-[0.6deg]'
           }`}>
           <img
             src={shot.src}
             alt={shot.label}
             loading="lazy"
-            className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0" />
-          <span className="absolute inset-0 bg-hq-black/40 transition-opacity duration-500 group-hover:opacity-0" />
-          <figcaption className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-hq-black/70 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80 backdrop-blur-sm">
-            <span className="h-1 w-1 rounded-full bg-hq-red" />
+            className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105" />
+          <span className="absolute inset-0 bg-hq-black/20 transition-opacity duration-500 group-hover:opacity-0" />
+          <figcaption className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-hq-black/70 px-3 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80 backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-hq-red" />
             {shot.label}
           </figcaption>
         </figure>

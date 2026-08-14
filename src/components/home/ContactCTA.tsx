@@ -3,9 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRightIcon,
   CheckIcon,
-  MapPinIcon,
   MailIcon,
-  PhoneIcon,
 } from "lucide-react";
 import { MagneticButton } from "../common/MagneticButton";
 import { CONSULTATION_PRICING } from "../../data/consultationPricing";
@@ -100,15 +98,6 @@ export function ContactCTA() {
                     className="hover:text-hq-red transition-colors"
                   >
                     hello@circlehqcompany.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-3 text-white/90">
-                  <PhoneIcon size={18} className="shrink-0 text-hq-red" />
-                  <a
-                    href="tel:+2348000000000"
-                    className="hover:text-hq-red transition-colors"
-                  >
-                    +234 800 000 0000
                   </a>
                 </div>
               </div>

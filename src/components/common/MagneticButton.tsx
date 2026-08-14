@@ -52,7 +52,7 @@ export function MagneticButton({
   };
 
   if (href) {
-    const isExternal = href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#');
+    const isExternal = /^(https?:|mailto:|tel:)/.test(href) || href.startsWith('#');
     if (isExternal) {
       return (
         <motion.a href={href} onClick={onClick} {...shared}>

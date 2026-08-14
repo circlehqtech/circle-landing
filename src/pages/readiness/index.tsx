@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { CursorField } from "../../components/common/CursorField";
 import { READINESS_QUESTIONS } from "../../data/readinessQuestions";
-import { CONSULTATION_PRICING } from "../../data/consultationPricing";
 import { sendReadinessScoreEmail } from "../../services/emailService";
 import html2pdf from "html2pdf.js";
 
@@ -91,8 +90,8 @@ export function ReadinessPage() {
         ctaTitle: "Your recommended first step: a 60-minute strategy session.",
         ctaBody:
           "Before any tool, build, or investment, you need a clear map of where to start. We review what to do first, in what order, and how to prepare your operation.",
-        ctaBtnText: "Book an AI Strategy Session",
-        paystackUrl: CONSULTATION_PRICING["Just me"].paystackUrl,
+        ctaBtnText: "Book a Consultation",
+        paystackUrl: "/consultation#booking",
       };
     } else if (score <= 26) {
       return {
@@ -112,8 +111,8 @@ export function ReadinessPage() {
           "Your recommended next step: a 60-minute AI Strategy Session.",
         ctaBody:
           "In 60 minutes with Flora and the Circle HQ team, we map your top automation opportunities, identify what to build first, and give you a realistic roadmap with investment ranges.",
-        ctaBtnText: "Book an AI Strategy Session",
-        paystackUrl: CONSULTATION_PRICING["2–10"].paystackUrl,
+        ctaBtnText: "Book a Consultation",
+        paystackUrl: "/consultation#booking",
       };
     } else {
       return {
@@ -132,8 +131,8 @@ export function ReadinessPage() {
         ctaTitle: "Your next step: a full AI implementation scoping session.",
         ctaBody:
           "You are ready to build. Circle HQ's next conversation with you is a detailed scoping session. We design the right AI system for your business, define measurable success, and agree on a build plan with clear timelines.",
-        ctaBtnText: "Book a Scoping Session with Circle HQ",
-        paystackUrl: CONSULTATION_PRICING["11–50"].paystackUrl,
+        ctaBtnText: "Book a Consultation",
+        paystackUrl: "/consultation#booking",
       };
     }
   };
@@ -535,14 +534,12 @@ export function ReadinessPage() {
               </p>
 
               <div className="pt-2">
-                <a
-                  href={tierData.paystackUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={tierData.paystackUrl}
                   className="inline-flex items-center gap-2 rounded-full bg-hq-red px-8 py-3.5 text-sm font-semibold uppercase tracking-wider text-white shadow-lg hover:bg-hq-red-deep transition-all"
                 >
                   {tierData.ctaBtnText} <ArrowRightIcon size={16} />
-                </a>
+                </Link>
               </div>
             </div>
 

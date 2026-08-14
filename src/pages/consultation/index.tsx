@@ -12,7 +12,6 @@ import {
   HelpCircleIcon,
   MapPinIcon,
   MailIcon,
-  PhoneIcon,
   SendIcon,
   ShieldCheckIcon,
 } from "lucide-react";
@@ -273,15 +272,6 @@ export function ConsultationPage() {
                         hello@circlehqcompany.com
                       </a>
                     </div>
-                    <div className="flex items-center gap-3 text-white/90">
-                      <PhoneIcon size={18} className="shrink-0 text-hq-red" />
-                      <a
-                        href="tel:+2348000000000"
-                        className="hover:text-hq-red transition-colors"
-                      >
-                        +234 800 000 0000
-                      </a>
-                    </div>
                   </div>
                 </div>
 
@@ -439,10 +429,8 @@ export function ConsultationPage() {
                         type="submit"
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-hq-red px-8 py-4 text-sm font-medium text-white shadow-lg hover:bg-hq-red-deep transition-all cursor-pointer"
                       >
-                        Get your business started (
-                        {CONSULTATION_PRICING[teamSize]?.formattedPrice ||
-                          "₦100,000"}
-                        ) <ArrowRightIcon size={16} />
+                        Get your business started
+                        <ArrowRightIcon size={16} />
                       </MagneticButton>
                     </div>
                   </form>

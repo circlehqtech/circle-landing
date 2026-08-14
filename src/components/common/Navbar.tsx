@@ -12,7 +12,7 @@ const LINKS = [
   { label: "Blog", href: "/blog" },
 ];
 
-const LIGHT_PAGES = ["/about", "/academy"];
+const LIGHT_PAGES: string[] = [];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -77,7 +77,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <Link
-            to="/consultation"
+            to="/consultation#booking"
             className="hidden rounded-full bg-hq-red px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-transform duration-200 hover:-translate-y-0.5 md:inline-block"
           >
             Book a Call
@@ -129,7 +129,7 @@ export function Navbar() {
               ))}
               <li className="pt-4">
                 <Link
-                  to="/consultation"
+                  to="/consultation#booking"
                   onClick={() => setOpen(false)}
                   className="block rounded-full bg-hq-red px-5 py-3 text-center text-sm font-medium text-white"
                 >

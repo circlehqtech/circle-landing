@@ -292,7 +292,7 @@ export function HowWeWork() {
                     {/* CTA link */}
                     <div className="pt-4 flex items-center justify-between">
                       <Link
-                        to="/consultation"
+                        to="/consultation#booking"
                         className="inline-flex items-center gap-2 rounded-full bg-hq-red/15 border border-hq-red/40 px-5 py-2.5 text-xs font-mono font-medium text-white transition-colors hover:bg-hq-red hover:text-white"
                       >
                         Start this step <ArrowRightIcon size={14} />

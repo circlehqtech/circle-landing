@@ -11,7 +11,7 @@ const COLUMNS = [
       { label: 'About', href: '/about' },
       { label: 'AI Solutions', href: '/solutions' },
       { label: 'Circle Academy', href: '/academy' },
-      { label: 'Book Consultation', href: '/consultation' },
+      { label: 'Book Consultation', href: '/consultation#booking' },
       { label: 'Blog', href: '/blog' }
     ]
   },
@@ -20,7 +20,7 @@ const COLUMNS = [
     links: [
       { label: 'The Standard', href: '/#standard' },
       { label: 'Student Outreach', href: '/academy#free-programmes' },
-      { label: 'Readiness Check', href: '/consultation#readiness' }
+      { label: 'Readiness Check', href: '/readiness' }
     ]
   },
   {

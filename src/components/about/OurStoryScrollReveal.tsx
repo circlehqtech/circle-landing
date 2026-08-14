@@ -168,8 +168,8 @@ function StoryWord({
           word.isRed
             ? "text-hq-red font-bold"
             : word.isBold
-              ? "text-hq-ink font-bold"
-              : "text-hq-ink/80 font-medium"
+              ? "text-white font-bold"
+              : "text-white/80 font-medium"
         }`}
       >
         {word.text}
@@ -190,7 +190,7 @@ export function OurStoryScrollReveal() {
   return (
     <div ref={containerRef} className="space-y-8">
       {/* Paragraph 1 */}
-      <p className="font-display text-xl sm:text-2xl font-bold leading-relaxed tracking-tight text-hq-ink">
+      <p className="font-display text-xl sm:text-2xl font-bold leading-relaxed tracking-tight text-white">
         {P1_WORDS.map((w, i) => {
           const index = currentIndex++;
           const start = index / ALL_WORDS.length;
@@ -207,7 +207,7 @@ export function OurStoryScrollReveal() {
       </p>
 
       {/* Paragraph 2 */}
-      <p className="text-base sm:text-lg leading-relaxed text-hq-ink/75 font-bold">
+      <p className="text-base sm:text-lg leading-relaxed text-hq-mute font-bold">
         {P2_WORDS.map((w, i) => {
           const index = currentIndex++;
           const start = index / ALL_WORDS.length;
@@ -224,7 +224,7 @@ export function OurStoryScrollReveal() {
       </p>
 
       {/* Paragraph 3 */}
-      <p className="text-base sm:text-lg font-bold leading-relaxed text-hq-ink">
+      <p className="text-base sm:text-lg font-bold leading-relaxed text-white">
         {P3_WORDS.map((w, i) => {
           const index = currentIndex++;
           const start = index / ALL_WORDS.length;
@@ -243,7 +243,7 @@ export function OurStoryScrollReveal() {
       {/* CTA Button */}
       <div className="pt-4">
         <MagneticButton
-          href="/consultation"
+          href="/consultation#booking"
           className="inline-flex items-center gap-2 rounded-full bg-hq-red px-7 py-3.5 text-sm font-medium text-white shadow-md hover:bg-hq-red-deep transition-all"
         >
           Talk to Us <ArrowRightIcon size={16} />

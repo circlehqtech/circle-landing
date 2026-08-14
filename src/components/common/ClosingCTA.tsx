@@ -20,7 +20,7 @@ const PAGE_CONFIGS: Record<string, CTAConfig> = {
     muted: ["need", "to", "learn."],
     description:
       "Standard programmes, or fully customised to your duration, modules, format, and team size.",
-    primaryBtn: { text: "Talk to us", href: "/consultation" },
+    primaryBtn: { text: "Talk to us", href: "/consultation#booking" },
     secondaryBtn: { text: "See what we build", href: "/solutions" },
   },
   "/solutions": {
@@ -29,7 +29,7 @@ const PAGE_CONFIGS: Record<string, CTAConfig> = {
     muted: ["We'll", "build", "the", "fix."],
     description:
       "Every build starts with a short, honest conversation about your operations — not a demo of ours.",
-    primaryBtn: { text: "Book a consultation", href: "/consultation" },
+    primaryBtn: { text: "Book a consultation", href: "/consultation#booking" },
     secondaryBtn: { text: "Train my team too", href: "/academy" },
   },
   "/about": {
@@ -38,7 +38,7 @@ const PAGE_CONFIGS: Record<string, CTAConfig> = {
     muted: ["to", "help", "you?"],
     description:
       "Tell us what you're building and where it slows down. We'll tell you honestly whether AI is the right fix.",
-    primaryBtn: { text: "Book a consultation", href: "/consultation" },
+    primaryBtn: { text: "Book a consultation", href: "/consultation#booking" },
     secondaryBtn: { text: "See what we build", href: "/solutions" },
   },
   "/blog": {
@@ -47,7 +47,7 @@ const PAGE_CONFIGS: Record<string, CTAConfig> = {
     muted: ["AI", "systems", "for", "your", "business?"],
     description:
       "Let's discuss your workflows and build custom automation that moves your business forward.",
-    primaryBtn: { text: "Book a consultation", href: "/consultation" },
+    primaryBtn: { text: "Book a consultation", href: "/consultation#booking" },
     secondaryBtn: { text: "See what we build", href: "/solutions" },
   },
   "/consultation": {
@@ -67,7 +67,7 @@ const DEFAULT_CONFIG: CTAConfig = {
   muted: ["to", "help", "you?"],
   description:
     "Tell us what you're building and where it slows down. We'll tell you honestly whether AI is the right fix.",
-  primaryBtn: { text: "Book a consultation", href: "/consultation" },
+  primaryBtn: { text: "Book a consultation", href: "/consultation#booking" },
   secondaryBtn: { text: "See what we build", href: "/solutions" },
 };
 
