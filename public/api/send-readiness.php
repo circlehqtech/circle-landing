@@ -95,7 +95,7 @@ function rate_limit_exceeded(): bool
     $timestamps = is_array($timestamps) ? $timestamps : [];
     $timestamps = array_values(array_filter(
         $timestamps,
-        static fn (mixed $timestamp): bool => is_int($timestamp) && $timestamp > $now - RATE_LIMIT_WINDOW_SECONDS,
+        static fn(mixed $timestamp): bool => is_int($timestamp) && $timestamp > $now - RATE_LIMIT_WINDOW_SECONDS,
     ));
 
     $limited = count($timestamps) >= RATE_LIMIT_MAX_REQUESTS;
@@ -161,7 +161,7 @@ $score = filter_var($payload['total_score'] ?? null, FILTER_VALIDATE_INT);
 $maxScore = filter_var($payload['max_score'] ?? null, FILTER_VALIDATE_INT);
 $rawInsights = is_array($payload['insights'] ?? null) ? array_slice($payload['insights'], 0, 5) : [];
 $insights = array_values(array_filter(array_map(
-    static fn (mixed $insight): string => clean_text($insight, 1500),
+    static fn(mixed $insight): string => clean_text($insight, 1500),
     $rawInsights,
 )));
 
@@ -192,12 +192,55 @@ $safeCompany = escape_html($company !== '' ? $company : 'Not provided');
 $safeTierName = escape_html($tierName);
 $safeTierDescription = escape_html($tierDescription);
 $insightItems = implode('', array_map(
-    static fn (string $insight): string => '<li style="margin:0 0 12px;line-height:1.65;color:#3f3f46">' . escape_html($insight) . '</li>',
+    static fn(string $insight): string => '<li style="margin:0 0 12px;line-height:1.65;color:#3f3f46">' . escape_html($insight) . '</li>',
     $insights,
 ));
 
-$subject = "Your AI Readiness Score: {$score}/{$maxScore} ({$tierName})";
-$html = <<<HTML
+function send_resend_email(string $apiKey, array $payload, ?string $idempotencyKey = null): array
+{
+    if (!function_exists('curl_init')) {
+        return ['success' => false, 'error' => 'cURL extension not available.'];
+    }
+
+    $requestBody = json_encode($payload, JSON_UNESCAPED_SLASHES);
+    if (!is_string($requestBody)) {
+        return ['success' => false, 'error' => 'Failed to encode email payload.'];
+    }
+
+    $headers = [
+        'Authorization: Bearer ' . $apiKey,
+        'Content-Type: application/json',
+    ];
+    if ($idempotencyKey !== null && $idempotencyKey !== '') {
+        $headers[] = 'Idempotency-Key: ' . $idempotencyKey;
+    }
+
+    $curl = curl_init(RESEND_ENDPOINT);
+    curl_setopt_array($curl, [
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 5,
+        CURLOPT_TIMEOUT => 15,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_POSTFIELDS => $requestBody,
+    ]);
+
+    $resendBody = curl_exec($curl);
+    $resendStatus = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+    $curlError = curl_error($curl);
+    curl_close($curl);
+
+    $resendResult = is_string($resendBody) ? json_decode($resendBody, true) : null;
+    if ($resendStatus < 200 || $resendStatus >= 300) {
+        error_log('Resend rejected email to ' . json_encode($payload['to'] ?? []) . '. Status: ' . $resendStatus . '; Error: ' . $curlError . '; Body: ' . (is_string($resendBody) ? $resendBody : ''));
+        return ['success' => false, 'status' => $resendStatus, 'error' => $curlError];
+    }
+
+    return ['success' => true, 'data' => is_array($resendResult) ? $resendResult : []];
+}
+
+$userSubject = "Your AI Readiness Score: {$score}/{$maxScore} ({$tierName})";
+$userHtml = <<<HTML
 <!doctype html>
 <html lang="en">
   <body style="margin:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#18181b">
@@ -239,11 +282,11 @@ $html = <<<HTML
 HTML;
 
 $textInsights = implode("\n", array_map(
-    static fn (string $insight, int $index): string => ($index + 1) . '. ' . $insight,
+    static fn(string $insight, int $index): string => ($index + 1) . '. ' . $insight,
     $insights,
     array_keys($insights),
 ));
-$text = "Hello {$name},\n\n"
+$userText = "Hello {$name},\n\n"
     . "Thank you for completing the Circle HQ AI Readiness Assessment.\n\n"
     . "YOUR AI READINESS SCORE: {$score} / {$maxScore}\n"
     . "STAGE: {$tierName}\n\n{$tierDescription}\n\n"
@@ -253,47 +296,93 @@ $text = "Hello {$name},\n\n"
     . 'Company: ' . ($company !== '' ? $company : 'Not provided') . "\n\n"
     . "Best regards,\nFlora Nnamaka & The Circle HQ Team\nhello@circlehqcompany.com";
 
-$requestBody = json_encode([
+$userPayload = [
     'from' => $fromEmail,
     'to' => [$email],
-    'bcc' => [$notificationEmail],
     'reply_to' => $notificationEmail,
-    'subject' => $subject,
-    'html' => $html,
-    'text' => $text,
-    'tags' => [['name' => 'email_type', 'value' => 'readiness_report']],
-], JSON_UNESCAPED_SLASHES);
+    'subject' => $userSubject,
+    'html' => $userHtml,
+    'text' => $userText,
+    'tags' => [['name' => 'email_type', 'value' => 'readiness_report_user']],
+];
 
-if (!is_string($requestBody) || !function_exists('curl_init')) {
-    error_log('Circle HQ email delivery could not initialize cURL.');
-    respond_json(['error' => 'Email delivery is temporarily unavailable.'], 503);
-}
+// Distinct HTML and Text template for company notification email
+$companySubject = "[New Lead] AI Readiness Assessment: {$safeName} ({$safeCompany}) - Score: {$score}/{$maxScore}";
+$companyHtml = <<<HTML
+<!doctype html>
+<html lang="en">
+  <body style="margin:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#18181b">
+    <div style="display:none;max-height:0;overflow:hidden">New AI Readiness Assessment lead submitted by {$safeName}.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f4f4f5;padding:32px 12px">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border-radius:18px;overflow:hidden;border:1px solid #e4e4e7">
+          <tr><td style="background:#0a0a0a;padding:28px 32px">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ef4444;font-weight:700">Circle HQ · Lead Notification</div>
+            <h1 style="margin:10px 0 0;color:#ffffff;font-size:22px;line-height:1.3">New AI Readiness Lead Submitted</h1>
+          </td></tr>
+          <tr><td style="padding:32px">
+            <div style="background:#f4f4f5;border-radius:12px;padding:20px;margin-bottom:24px;border-left:4px solid #cc0000">
+              <h2 style="margin:0 0 12px;font-size:16px;color:#18181b">Contact Information</h2>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="4" style="font-size:14px;color:#3f3f46">
+                <tr><td width="110"><strong>Name:</strong></td><td>{$safeName}</td></tr>
+                <tr><td><strong>Email:</strong></td><td><a href="mailto:{$safeEmail}" style="color:#cc0000;font-weight:600">{$safeEmail}</a></td></tr>
+                <tr><td><strong>Phone:</strong></td><td>{$safePhone}</td></tr>
+                <tr><td><strong>Company:</strong></td><td>{$safeCompany}</td></tr>
+              </table>
+            </div>
 
-$curl = curl_init(RESEND_ENDPOINT);
-curl_setopt_array($curl, [
-    CURLOPT_POST => true,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_CONNECTTIMEOUT => 5,
-    CURLOPT_TIMEOUT => 15,
-    CURLOPT_HTTPHEADER => [
-        'Authorization: Bearer ' . $apiKey,
-        'Content-Type: application/json',
-    ],
-    CURLOPT_POSTFIELDS => $requestBody,
-]);
+            <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:14px;padding:20px;margin-bottom:24px">
+              <div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#71717a;font-weight:700">Readiness Score &amp; Stage</div>
+              <div style="font-size:32px;font-weight:800;color:#cc0000;margin-top:4px">{$score} / {$maxScore}</div>
+              <div style="margin-top:4px;font-size:16px;font-weight:700;color:#18181b">{$safeTierName}</div>
+              <p style="margin:10px 0 0;font-size:13px;line-height:1.6;color:#52525b">{$safeTierDescription}</p>
+            </div>
 
-$resendBody = curl_exec($curl);
-$resendStatus = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
-$curlError = curl_error($curl);
-curl_close($curl);
+            <h3 style="font-size:15px;margin:0 0 12px;color:#18181b">Operational Insights Generated:</h3>
+            <ol style="padding-left:20px;margin:0 0 24px;font-size:14px;color:#3f3f46">{$insightItems}</ol>
 
-$resendResult = is_string($resendBody) ? json_decode($resendBody, true) : null;
-if ($resendStatus < 200 || $resendStatus >= 300) {
-    error_log('Resend rejected readiness email. Status: ' . $resendStatus . '; Error: ' . $curlError);
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px;font-size:13px;color:#1e40af">
+              <strong>💡 Quick Action:</strong> Hit <strong>Reply</strong> in your email client to respond directly to {$safeName} ({$safeEmail}).
+            </div>
+          </td></tr>
+          <tr><td style="background:#fafafa;padding:16px 32px;font-size:12px;color:#71717a">
+            Circle HQ Automated Lead Notification · <a href="https://circlehqcompany.com" style="color:#71717a">circlehqcompany.com</a>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>
+HTML;
+
+$companyText = "NEW AI READINESS ASSESSMENT LEAD\n\n"
+    . "CONTACT INFORMATION:\n"
+    . "Name: {$name}\nEmail: {$email}\nPhone: " . ($phone !== '' ? $phone : 'Not provided') . "\n"
+    . "Company: " . ($company !== '' ? $company : 'Not provided') . "\n\n"
+    . "ASSESSMENT RESULT:\nScore: {$score} / {$maxScore}\nStage: {$tierName}\n{$tierDescription}\n\n"
+    . "KEY INSIGHTS:\n{$textInsights}\n\n"
+    . "Hit Reply to contact {$name} directly.";
+
+$companyPayload = [
+    'from' => $fromEmail,
+    'to' => [$notificationEmail],
+    'reply_to' => $email,
+    'subject' => $companySubject,
+    'html' => $companyHtml,
+    'text' => $companyText,
+    'tags' => [['name' => 'email_type', 'value' => 'readiness_company_notification']],
+];
+
+$userResult = send_resend_email($apiKey, $userPayload);
+if (!$userResult['success']) {
+    error_log('Circle HQ user readiness email delivery failed.');
     respond_json(['error' => 'Email delivery failed. Please try again.'], 502);
 }
 
+// Send distinct company notification email to hello@circlehqcompany.com
+send_resend_email($apiKey, $companyPayload);
+
 respond_json([
     'success' => true,
-    'id' => is_array($resendResult) ? ($resendResult['id'] ?? null) : null,
+    'id' => $userResult['data']['id'] ?? null,
 ]);

@@ -1,5 +1,5 @@
-import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import React, { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SplitHeading } from "../../components/common/SplitHeading";
 import { MagneticButton } from "../../components/common/MagneticButton";
 import { CursorField } from "../../components/common/CursorField";
@@ -7,8 +7,8 @@ import { ScrollTextReveal } from "../../components/solutions/ScrollTextReveal";
 import {
   ArrowRightIcon,
   Building2Icon,
-  ExternalLinkIcon,
   LayersIcon,
+  LockKeyholeIcon,
   MicIcon,
   RocketIcon,
   SearchIcon,
@@ -17,6 +17,10 @@ import {
 } from "lucide-react";
 import { ProblemsSection } from "../../components/solutions/ProblemsSection";
 import { ProcessSection } from "../../components/timeline/ProcessSection";
+import {
+  ProductAccessDialog,
+  type ProductAccessProduct,
+} from "../../components/solutions/ProductAccessDialog";
 
 const STEPS = [
   {
@@ -78,7 +82,6 @@ const PRODUCTS = [
     headline: "Every call answered. Every order captured.",
     description:
       "An AI phone representative that answers menu questions, takes pickup or delivery orders, and confirms every detail without keeping customers waiting.",
-    href: "https://circle-restaurant-ai.vercel.app/",
     icon: MicIcon,
   },
   {
@@ -89,7 +92,6 @@ const PRODUCTS = [
     headline: "Every property operation, in one clear view.",
     description:
       "A secure, role-based workspace for managing client portfolios, collections, approvals, and estate delivery across a property business.",
-    href: "https://circle-props.vercel.app/",
     icon: Building2Icon,
   },
 ] as const;
@@ -98,6 +100,8 @@ type ProductId = (typeof PRODUCTS)[number]["id"];
 
 export function SolutionsPage() {
   const shouldReduceMotion = useReducedMotion();
+  const [selectedProduct, setSelectedProduct] =
+    useState<ProductAccessProduct | null>(null);
 
   return (
     <div className="relative">
@@ -159,7 +163,7 @@ export function SolutionsPage() {
                   Book a Consultation <ArrowRightIcon size={16} />
                 </MagneticButton>
                 <MagneticButton
-                  href="#products"
+                  href="/solutions/all"
                   strength={0.2}
                   className="inline-flex items-center gap-2 rounded-full border border-hq-line bg-hq-panel/70 px-7 py-3.5 text-sm font-medium text-white transition-colors hover:border-hq-red hover:text-hq-red"
                 >
@@ -344,8 +348,8 @@ export function SolutionsPage() {
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-relaxed text-hq-mute sm:text-base lg:justify-self-end">
-              These are live systems, designed around the people, workflows,
-              and decisions inside real businesses — not off-the-shelf demos.
+              These are live systems, designed around the people, workflows, and
+              decisions inside real businesses — not off-the-shelf demos.
             </p>
           </motion.header>
 
@@ -404,29 +408,20 @@ export function SolutionsPage() {
                       {product.description}
                     </p>
 
-                    <a
-                      href={product.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={
-                        "View " +
-                        product.name +
-                        " live (opens in a new tab)"
-                      }
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProduct(product)}
+                      aria-label={"Request access to explore " + product.name}
                       className="mt-8 flex min-h-12 w-full items-center justify-between border-t border-hq-line pt-5 text-sm font-semibold text-white transition-colors hover:text-hq-red focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hq-red"
                     >
                       <span className="flex items-center gap-2">
                         <span className="h-px w-5 bg-hq-red transition-all duration-300 group-hover:w-8" />
-                        Explore live product
+                        Request access to explore
                       </span>
                       <span className="flex h-10 w-10 items-center justify-center rounded-full border border-hq-line bg-hq-black text-hq-red transition-all duration-300 group-hover:border-hq-red group-hover:bg-hq-red group-hover:text-white">
-                        <ExternalLinkIcon
-                          size={15}
-                          aria-hidden="true"
-                          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                        />
+                        <LockKeyholeIcon size={15} aria-hidden="true" />
                       </span>
-                    </a>
+                    </button>
                   </div>
                 </motion.article>
               );
@@ -434,6 +429,15 @@ export function SolutionsPage() {
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedProduct && (
+          <ProductAccessDialog
+            product={selectedProduct}
+            onClose={() => setSelectedProduct(null)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Methodology: How We Work - Timeline Animation Section */}
       <ProcessSection />
@@ -654,9 +658,7 @@ function ProductPreview({ type }: { type: ProductId }) {
             <span className="absolute h-20 w-20 rounded-full bg-hq-red/15 blur-md sm:h-28 sm:w-28" />
             <motion.span
               className="relative flex h-14 w-14 items-center justify-center rounded-full bg-hq-red font-display text-sm font-bold text-white shadow-xl shadow-hq-red/30 sm:h-20 sm:w-20 sm:text-base"
-              animate={
-                shouldReduceMotion ? undefined : { scale: [1, 1.06, 1] }
-              }
+              animate={shouldReduceMotion ? undefined : { scale: [1, 1.06, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
               AI
@@ -700,7 +702,11 @@ function ProductPreview({ type }: { type: ProductId }) {
             initial={{ scaleY: 0.25 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.25,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           />
           <motion.span
             className="absolute -bottom-8 right-16 h-16 w-12 origin-bottom rounded-t-xl bg-black/10 sm:right-20 sm:h-24 sm:w-16"

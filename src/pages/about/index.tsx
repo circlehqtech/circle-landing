@@ -1,37 +1,49 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { SplitHeading } from '../../components/common/SplitHeading';
-import { MagneticButton } from '../../components/common/MagneticButton';
-import { ContactCTA } from '../../components/home/ContactCTA';
-import { CursorField } from '../../components/common/CursorField';
-import { OurStoryScrollReveal } from '../../components/about/OurStoryScrollReveal';
-import { ArrowRightIcon, SparklesIcon, TargetIcon, CompassIcon, ZapIcon, CheckCircle2Icon, ShieldCheckIcon } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { SplitHeading } from "../../components/common/SplitHeading";
+import { MagneticButton } from "../../components/common/MagneticButton";
+import { ContactCTA } from "../../components/home/ContactCTA";
+import { CursorField } from "../../components/common/CursorField";
+import { OurStoryScrollReveal } from "../../components/about/OurStoryScrollReveal";
+import {
+  ArrowRightIcon,
+  SparklesIcon,
+  TargetIcon,
+  CompassIcon,
+  ZapIcon,
+  CheckCircle2Icon,
+  ShieldCheckIcon,
+} from "lucide-react";
 
 const VALUES = [
   {
-    title: 'Growth',
-    blurb: 'Help businesses grow without adding extra strain, overhead, or friction.',
+    title: "Growth",
+    blurb:
+      "Help businesses grow without adding extra strain, overhead, or friction.",
     icon: SparklesIcon,
-    image: '/3a189f97-4d04-43b7-ad66-524fad486114.jpg'
+    image: "/3a189f97-4d04-43b7-ad66-524fad486114.jpg",
   },
   {
-    title: 'Simplicity',
-    blurb: 'Make daily work smoother by removing manual, repetitive tasks from your team.',
+    title: "Simplicity",
+    blurb:
+      "Make daily work smoother by removing manual, repetitive tasks from your team.",
     icon: ZapIcon,
-    image: '/fc1b4738-d5c0-44fa-80be-c83cd0a3a8d1.jpg'
+    image: "/fc1b4738-d5c0-44fa-80be-c83cd0a3a8d1.jpg",
   },
   {
-    title: 'Curiosity',
-    blurb: 'Stay ahead by learning and experimenting so our clients don’t have to chase every new tool.',
+    title: "Curiosity",
+    blurb:
+      "Stay ahead by learning and experimenting so our clients don’t have to chase every new tool.",
     icon: CompassIcon,
-    image: '/2716ccb6-35bb-43e3-b2b5-908f2d8c7302.jpg'
+    image: "/2716ccb6-35bb-43e3-b2b5-908f2d8c7302.jpg",
   },
   {
-    title: 'Focus',
-    blurb: 'Give teams more space to work on what actually drives the business forward.',
+    title: "Focus",
+    blurb:
+      "Give teams more space to work on what actually drives the business forward.",
     icon: TargetIcon,
-    image: '/9676547c-bb5b-49a6-b12f-91640f0ea60b.jpg'
-  }
+    image: "/9676547c-bb5b-49a6-b12f-91640f0ea60b.jpg",
+  },
 ];
 
 export function AboutPage() {
@@ -47,13 +59,14 @@ export function AboutPage() {
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-hq-red/30 bg-hq-red/[0.08] px-3.5 py-1.5 font-mono text-xs text-hq-red font-semibold">
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-hq-red/30 bg-hq-red/[0.08] px-3.5 py-1.5 font-mono text-xs text-hq-red font-semibold"
+            >
               About Circle HQ
             </motion.p>
-            
+
             <SplitHeading
               text="We simplify business operations through intelligent, AI-driven systems."
-              muted={['through', 'intelligent,', 'AI-driven', 'systems.']}
+              muted={["through", "intelligent,", "AI-driven", "systems."]}
               mutedClassName="text-hq-red"
               className="font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl"
             />
@@ -62,8 +75,12 @@ export function AboutPage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-hq-mute">
-              We’re an AI automation agency that simplifies business operations through intelligent, AI-driven tools and systems. Our solutions are designed to save you time, enhance efficiency, and deliver measurable results that drive growth.
+              className="mt-6 max-w-2xl text-lg leading-relaxed text-hq-mute"
+            >
+              We’re an AI automation agency that simplifies business operations
+              through intelligent, AI-driven tools and systems. Our solutions
+              are designed to save you time, enhance efficiency, and deliver
+              measurable results that drive growth.
             </motion.p>
           </div>
 
@@ -72,7 +89,8 @@ export function AboutPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.8 }}
-            className="mt-12 relative overflow-hidden rounded-3xl border border-white/10 shadow-xl aspect-[21/9]">
+            className="mt-12 relative overflow-hidden rounded-3xl border border-white/10 shadow-xl aspect-[21/9]"
+          >
             <img
               src="/about_hero_studio.png"
               alt="Circle HQ Team Studio Operations"
@@ -83,7 +101,7 @@ export function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-hq-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 text-white max-w-lg">
               <span className="font-mono text-xs uppercase tracking-widest text-white bg-hq-red px-3 py-1 rounded-full">
-                Lagos Studio HQ
+                AI Systems Solutions
               </span>
               <p className="mt-3 font-display text-xl font-semibold sm:text-2xl">
                 Building AI solutions that remove operational drag.
@@ -102,10 +120,10 @@ export function AboutPage() {
               <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.28em] text-hq-red font-bold">
                 OUR STORY
               </p>
-              
+
               <SplitHeading
                 text="Why we built Circle HQ."
-                muted={['Circle', 'HQ.']}
+                muted={["Circle", "HQ."]}
                 mutedClassName="text-hq-red"
                 className="font-display text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl"
               />
@@ -128,11 +146,14 @@ export function AboutPage() {
             </span>
 
             <h2 className="font-display text-3xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl">
-              Change isn't what slows businesses down. <span className="text-hq-red">Inefficient systems do.</span>
+              Change isn't what slows businesses down.{" "}
+              <span className="text-hq-red">Inefficient systems do.</span>
             </h2>
 
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-hq-mute">
-              We believe growth happens when smart automation carries the operational load and people can put their time into vision, creativity, and serving customers.
+              We believe growth happens when smart automation carries the
+              operational load and people can put their time into vision,
+              creativity, and serving customers.
             </p>
           </div>
 
@@ -145,9 +166,13 @@ export function AboutPage() {
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.05 }}
-                  transition={{ delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e11] transition-all duration-300 ease-out hover:-translate-x-1.5 hover:-translate-y-1.5 hover:border-hq-red/50 hover:shadow-[10px_10px_0px_0px_#e0142c]">
-                  
+                  transition={{
+                    delay: i * 0.08,
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e11] transition-all duration-300 ease-out hover:-translate-x-1.5 hover:-translate-y-1.5 hover:border-hq-red/50 hover:shadow-[10px_10px_0px_0px_#e0142c]"
+                >
                   {/* Card Cover Image with Floating Icon */}
                   <div className="relative aspect-[16/10] overflow-hidden rounded-t-2xl bg-hq-black">
                     <img

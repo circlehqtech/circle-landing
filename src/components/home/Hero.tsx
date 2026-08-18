@@ -40,16 +40,16 @@ const MEDIA = {
   },
 } satisfies Record<string, RevealMedia>;
 
-const LINE_ONE: Word[] = [{ text: "One" }, { text: "HQ.", hoverable: true }];
+const LINE_ONE: Word[] = [{ text: "One" }, { text: "HQ.", media: MEDIA.orb }];
 
 const LINE_TWO: Word[] = [
   { text: "Two", highlighted: true },
   { text: "Ways", highlighted: true },
   { text: "to", muted: true },
-  { text: "Run", hoverable: true },
+  { text: "Run", media: MEDIA.marketing },
   { text: "Your" },
-  { text: "Business", hoverable: true },
-  { text: "Smarter.", media: [MEDIA.systems, MEDIA.academy] },
+  { text: "Business", media: MEDIA.systems },
+  { text: "Smarter.", media: MEDIA.academy },
 ];
 
 const PILLS = [

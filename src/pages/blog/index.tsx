@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BlogCard, BlogCardSkeleton } from "../../components/blog/BlogCard";
 import type { BlogPost } from "../../components/blog/BlogCard";
@@ -23,6 +24,9 @@ type CategoryOption = {
 };
 
 export function BlogPage() {
+  const [searchParams] = useSearchParams();
+  const slugQuery = searchParams.get("slug");
+
   const [categories, setCategories] = useState<CategoryOption[]>([
     { id: "ALL", name: "ALL" },
   ]);
@@ -78,6 +82,16 @@ export function BlogPage() {
   useEffect(() => {
     loadPosts();
   }, [selectedCategory]);
+
+  // Open modal if slug query parameter is provided in URL
+  useEffect(() => {
+    if (slugQuery && posts.length > 0) {
+      const matched = posts.find((p) => p.slug === slugQuery);
+      if (matched) {
+        setActivePost(matched);
+      }
+    }
+  }, [slugQuery, posts]);
 
   return (
     <div className="relative bg-hq-black text-white min-h-screen">

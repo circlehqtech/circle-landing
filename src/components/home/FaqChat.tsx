@@ -11,14 +11,14 @@ const FAQS: Faq[] = [
     num: '01',
     question: 'What does Circle HQ actually build?',
     answer:
-      'Custom AI business systems — built around your specific operations, not sold as a fixed product. Examples include 24/7 chat agents, reporting dashboards, workflow automation, onboarding flows, and revenue tracking systems.'
+      "Custom AI business systems — built around your specific operations, not sold as a fixed product. Examples include 24/7 chat agents, reporting and business intelligence dashboards, workflow and approval automation, customer onboarding automation, and revenue tracking systems. If your need isn't listed, we still want to hear about it."
   },
   {
     id: 'diff',
     num: '02',
-    question: 'What’s the difference between AI Solutions and Academy?',
+    question: "What's the difference between Circle AI Solutions and Circle Academy?",
     answer:
-      'Circle AI Solutions builds the AI systems your business runs on. Circle Academy trains the people who run them — either as an organisation-wide literacy programme, or as individual hands-on AI agent-building training.'
+      'Circle AI Solutions builds the AI systems your business runs on. Circle Academy trains the people who run them — either as an organisation-wide literacy programme, or as individual, hands-on AI agent-building training. You can work with one or both.'
   },
   {
     id: 'systems',
@@ -40,6 +40,27 @@ const FAQS: Faq[] = [
     question: 'Is Circle Academy only for people with a technical background?',
     answer:
       'No. The Business AI Literacy Programme is built for non-technical staff at any level. The AI Agent Builder Programme is more hands-on, but starts from the fundamentals — no prior coding experience required.'
+  },
+  {
+    id: 'build-and-training',
+    num: '06',
+    question: 'Can my organisation book both a system build and staff training?',
+    answer:
+      'Yes. Many organisations do both — building the system through Circle AI Solutions, and training their team through Circle Academy, so the people using the system are set up to get the most out of it.'
+  },
+  {
+    id: 'location',
+    num: '07',
+    question: 'Do you work with businesses outside Lagos or outside Nigeria?',
+    answer:
+      "Circle HQ works remotely with clients anywhere. Distance isn't a barrier to how we work."
+  },
+  {
+    id: 'get-started',
+    num: '08',
+    question: 'How do I get started?',
+    answer:
+      "Book a consultation. It's a short, no-obligation conversation to understand your business and figure out the right next step — whether that's a system, training, or both."
   }
 ];
 

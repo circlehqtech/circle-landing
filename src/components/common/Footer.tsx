@@ -10,6 +10,7 @@ const COLUMNS = [
       { label: 'Home', href: '/' },
       { label: 'About', href: '/about' },
       { label: 'AI Solutions', href: '/solutions' },
+      { label: 'All Solutions Built', href: '/solutions/all' },
       { label: 'Circle Academy', href: '/academy' },
       { label: 'Book Consultation', href: '/consultation#booking' },
       { label: 'Blog', href: '/blog' }

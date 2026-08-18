@@ -6,6 +6,9 @@ Options -Indexes
   RewriteEngine On
   RewriteBase /
 
+  # Always use the new static application for the domain homepage.
+  RewriteRule ^$ index.html [L]
+
   # Keep the Hostinger PHP API and the WordPress CMS outside the SPA rewrite.
   RewriteRule ^api(?:/|$) - [L]
   RewriteRule ^cms\.circlehqcompany\.com(?:/|$) - [L]
