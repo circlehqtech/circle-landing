@@ -174,6 +174,7 @@ $products = [
 $productId = clean_text($payload['product_id'] ?? null, 40);
 $name = clean_text($payload['user_name'] ?? null, 100);
 $email = strtolower(clean_text($payload['user_email'] ?? null, 254));
+$phone = clean_text($payload['user_phone'] ?? null, 30);
 $company = clean_text($payload['user_company'] ?? null, 120);
 $businessContext = clean_text($payload['business_context'] ?? null, 1200);
 $product = $products[$productId] ?? null;
@@ -232,6 +233,7 @@ function send_resend_email(string $apiKey, array $payload, ?string $idempotencyK
 
 $safeName = escape_html($name);
 $safeEmail = escape_html($email);
+$safePhone = escape_html($phone !== '' ? $phone : 'Not provided');
 $safeCompany = escape_html($company !== '' ? $company : 'Not provided');
 $safeContext = nl2br(escape_html($businessContext));
 $safeProductName = escape_html((string) $product['name']);
@@ -341,6 +343,7 @@ $companyHtml = <<<HTML
               <table role="presentation" width="100%" cellspacing="0" cellpadding="4" style="font-size:14px;color:#3f3f46">
                 <tr><td width="110"><strong>Name:</strong></td><td>{$safeName}</td></tr>
                 <tr><td><strong>Email:</strong></td><td><a href="mailto:{$safeEmail}" style="color:#e0142c;font-weight:600">{$safeEmail}</a></td></tr>
+                <tr><td><strong>Phone:</strong></td><td>{$safePhone}</td></tr>
                 <tr><td><strong>Company:</strong></td><td>{$safeCompany}</td></tr>
                 <tr><td><strong>Requested Product:</strong></td><td><strong style="color:#18181b">{$safeProductName}</strong></td></tr>
               </table>
@@ -368,7 +371,7 @@ HTML;
 $companyText = "NEW PRODUCT ACCESS REQUEST\n\n"
   . "Product: {$product['name']}\n\n"
   . "LEAD CONTACT INFO:\n"
-  . "Name: {$name}\nEmail: {$email}\n"
+  . "Name: {$name}\nEmail: {$email}\nPhone: " . ($phone !== '' ? $phone : 'Not provided') . "\n"
   . "Company: " . ($company !== '' ? $company : 'Not provided') . "\n\n"
   . "BUSINESS CONTEXT:\n{$businessContext}\n\n"
   . "Hit Reply to contact {$name} directly.";

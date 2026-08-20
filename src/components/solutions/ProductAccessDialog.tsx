@@ -54,7 +54,7 @@ export function ProductAccessDialog({
 
       const focusable = Array.from(
         dialogRef.current.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href]',
+          "button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href]",
         ),
       );
 
@@ -91,6 +91,7 @@ export function ProductAccessDialog({
       product_id: product.id,
       user_name: String(formData.get("name") || "").trim(),
       user_email: email,
+      user_phone: String(formData.get("phone") || "").trim(),
       user_company: String(formData.get("company") || "").trim(),
       business_context: String(formData.get("context") || "").trim(),
     });
@@ -171,11 +172,7 @@ export function ProductAccessDialog({
         </div>
 
         {isComplete ? (
-          <div
-            className="relative p-6 sm:p-9"
-            role="status"
-            aria-live="polite"
-          >
+          <div className="relative p-6 sm:p-9" role="status" aria-live="polite">
             <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.07] p-5 sm:p-6">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-300">
                 <MailCheckIcon size={23} aria-hidden="true" />
@@ -184,7 +181,10 @@ export function ProductAccessDialog({
                 Your access email is on its way
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-hq-mute">
-                Open the email and select <strong className="text-white">Explore {product.name}</strong> to visit the live product. If it does not arrive shortly, check your spam or promotions folder.
+                Open the email and select{" "}
+                <strong className="text-white">Explore {product.name}</strong>{" "}
+                to visit the live product. If it does not arrive shortly, check
+                your spam or promotions folder.
               </p>
             </div>
 
@@ -197,90 +197,113 @@ export function ProductAccessDialog({
             </button>
           </div>
         ) : (
-        <form onSubmit={handleSubmit} className="relative space-y-5 p-6 sm:p-9">
-          <div className="grid gap-5 sm:grid-cols-2">
-            <label className="text-sm font-medium text-white">
-              Name
-              <input
-                ref={firstInputRef}
-                type="text"
-                name="name"
-                autoComplete="name"
+          <form
+            onSubmit={handleSubmit}
+            className="relative space-y-5 p-6 sm:p-9"
+          >
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="text-sm font-medium text-white">
+                Name
+                <input
+                  ref={firstInputRef}
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  maxLength={100}
+                  placeholder="Your name"
+                  className={inputClassName}
+                />
+              </label>
+
+              <label className="text-sm font-medium text-white">
+                Work email
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  maxLength={254}
+                  placeholder="you@company.com"
+                  className={inputClassName}
+                />
+              </label>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="text-sm font-medium text-white">
+                Organisation
+                <input
+                  type="text"
+                  name="company"
+                  autoComplete="organization"
+                  maxLength={120}
+                  required
+                  placeholder="Company or organisation"
+                  className={inputClassName}
+                />
+              </label>
+
+              <label className="text-sm font-medium text-white">
+                Phone number
+                <input
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  maxLength={30}
+                  required
+                  placeholder="+234 800 000 0000"
+                  className={inputClassName}
+                />
+              </label>
+            </div>
+
+            <label className="block text-sm font-medium text-white">
+              What are you hoping to improve?
+              <textarea
+                name="context"
                 required
-                maxLength={100}
-                placeholder="Your name"
-                className={inputClassName}
+                minLength={12}
+                maxLength={1200}
+                rows={4}
+                placeholder="Briefly describe the workflow, challenge, or result you are interested in."
+                className={`${inputClassName} resize-y py-3.5`}
               />
             </label>
 
-            <label className="text-sm font-medium text-white">
-              Work email
-              <input
-                type="email"
-                name="email"
-                autoComplete="email"
-                required
-                maxLength={254}
-                placeholder="you@company.com"
-                className={inputClassName}
-              />
-            </label>
-          </div>
+            {error && (
+              <p
+                role="alert"
+                className="rounded-xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm leading-relaxed text-red-200"
+              >
+                {error}
+              </p>
+            )}
 
-          <label className="block text-sm font-medium text-white">
-            Organisation <span className="font-normal text-hq-mute">(optional)</span>
-            <input
-              type="text"
-              name="company"
-              autoComplete="organization"
-              maxLength={120}
-              placeholder="Company or organisation"
-              className={inputClassName}
-            />
-          </label>
-
-          <label className="block text-sm font-medium text-white">
-            What are you hoping to improve?
-            <textarea
-              name="context"
-              required
-              minLength={12}
-              maxLength={1200}
-              rows={4}
-              placeholder="Briefly describe the workflow, challenge, or result you are interested in."
-              className={`${inputClassName} resize-y py-3.5`}
-            />
-          </label>
-
-          {error && (
-            <p
-              role="alert"
-              className="rounded-xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm leading-relaxed text-red-200"
-            >
-              {error}
-            </p>
-          )}
-
-          <div className="flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="flex max-w-xs items-start gap-2 text-xs leading-relaxed text-hq-mute">
-              <CheckCircle2Icon
-                size={15}
-                className="mt-0.5 shrink-0 text-hq-red"
-                aria-hidden="true"
-              />
-              Your details are sent securely to Circle HQ and are not displayed
-              publicly.
-            </p>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-hq-red px-6 text-sm font-semibold text-white transition-colors hover:bg-hq-red-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hq-red focus-visible:ring-offset-2 focus-visible:ring-offset-[#101014] disabled:cursor-wait disabled:opacity-60"
-            >
-              {isSubmitting ? "Sending access link…" : "Email me the access link"}
-              {!isSubmitting && <ArrowRightIcon size={16} aria-hidden="true" />}
-            </button>
-          </div>
-        </form>
+            <div className="flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="flex max-w-xs items-start gap-2 text-xs leading-relaxed text-hq-mute">
+                <CheckCircle2Icon
+                  size={15}
+                  className="mt-0.5 shrink-0 text-hq-red"
+                  aria-hidden="true"
+                />
+                Your details are sent securely to Circle HQ and are not
+                displayed publicly.
+              </p>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-hq-red px-6 text-sm font-semibold text-white transition-colors hover:bg-hq-red-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hq-red focus-visible:ring-offset-2 focus-visible:ring-offset-[#101014] disabled:cursor-wait disabled:opacity-60"
+              >
+                {isSubmitting
+                  ? "Sending access link…"
+                  : "Email me the access link"}
+                {!isSubmitting && (
+                  <ArrowRightIcon size={16} aria-hidden="true" />
+                )}
+              </button>
+            </div>
+          </form>
         )}
       </motion.div>
     </motion.div>,

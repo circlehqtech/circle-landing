@@ -20,6 +20,8 @@ export function AppRoutes() {
         <Route path="solutions" element={<SolutionsPage />} />
         <Route path="solutions/all" element={<AllSolutionsPage />} />
         <Route path="all-solutions" element={<AllSolutionsPage />} />
+        <Route path="all-products" element={<AllSolutionsPage />} />
+        <Route path="products" element={<AllSolutionsPage />} />
         <Route path="academy" element={<AcademyPage />} />
         <Route path="consultation" element={<ConsultationPage />} />
         <Route path="readiness" element={<ReadinessPage />} />

@@ -8,6 +8,7 @@ const LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "AI Solutions", href: "/solutions" },
+  { label: "All Products", href: "/all-products" },
   { label: "Circle Academy", href: "/academy" },
   { label: "Blog", href: "/blog" },
 ];
@@ -48,7 +49,12 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-8 md:flex">
           {LINKS.map((link) => {
-            const isActive = location.pathname === link.href;
+            const isActive =
+              location.pathname === link.href ||
+              (link.href === "/all-products" &&
+                ["/all-products", "/all-solutions", "/solutions/all", "/products"].includes(
+                  location.pathname,
+                ));
             return (
               <li key={link.label}>
                 <Link

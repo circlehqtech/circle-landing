@@ -20,6 +20,7 @@ export type ProductAccessPayload = {
   product_id: "restaurant-ai" | "circle-props";
   user_name: string;
   user_email: string;
+  user_phone?: string;
   user_company?: string;
   business_context: string;
 };
