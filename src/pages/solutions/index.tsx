@@ -13,6 +13,7 @@ import {
   RocketIcon,
   SearchIcon,
   ShieldCheckIcon,
+  WalletIcon,
   ZapIcon,
 } from "lucide-react";
 import { ProblemsSection } from "../../components/solutions/ProblemsSection";
@@ -93,6 +94,16 @@ const PRODUCTS = [
     description:
       "A secure, role-based workspace for managing client portfolios, collections, approvals, and estate delivery across a property business.",
     icon: Building2Icon,
+  },
+  {
+    id: "circle-pay",
+    number: "03",
+    category: "FinTech AI · Payments",
+    name: "CirclePay AI",
+    headline: "Your money, one conversation away.",
+    description:
+      "A conversational financial assistant that checks balances, tracks spending insights, manages beneficiaries, and handles safe money transfers.",
+    icon: WalletIcon,
   },
 ] as const;
 
@@ -412,7 +423,7 @@ export function SolutionsPage() {
                       type="button"
                       onClick={() => setSelectedProduct(product)}
                       aria-label={"Request access to explore " + product.name}
-                      className="mt-8 flex min-h-12 w-full items-center justify-between border-t border-hq-line pt-5 text-sm font-semibold text-white transition-colors hover:text-hq-red focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hq-red"
+                      className="mt-8 flex min-h-12 w-full items-center justify-between border-t border-hq-line pt-5 text-sm font-semibold text-white transition-colors hover:text-hq-red focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hq-red cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
                         <span className="h-px w-5 bg-hq-red transition-all duration-300 group-hover:w-8" />
@@ -663,6 +674,86 @@ function ProductPreview({ type }: { type: ProductId }) {
             >
               AI
             </motion.span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "circle-pay") {
+    return (
+      <div
+        aria-hidden="true"
+        className="relative aspect-[16/10] overflow-hidden border-b border-hq-line bg-[#0c0d12] p-4 text-white sm:p-6"
+      >
+        <motion.span
+          className="pointer-events-none absolute inset-y-0 z-10 w-24 -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+          initial={{ x: "-180%" }}
+          animate={shouldReduceMotion ? undefined : { x: "850%" }}
+          transition={{ duration: 4.8, repeat: Infinity, repeatDelay: 1.2 }}
+        />
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <span className="flex items-center gap-2 font-display text-sm font-extrabold">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-hq-red text-white">
+              <WalletIcon size={11} />
+            </span>
+            <span>
+              <span className="text-hq-red">CirclePay</span> AI
+            </span>
+          </span>
+          <span className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-widest text-emerald-400">
+            <motion.span
+              className="h-1.5 w-1.5 rounded-full bg-emerald-400"
+              animate={
+                shouldReduceMotion ? undefined : { opacity: [1, 0.35, 1] }
+              }
+              transition={{ duration: 1.6, repeat: Infinity }}
+            />
+            Financial Agent
+          </span>
+        </div>
+
+        <div className="grid h-[calc(100%-2.25rem)] grid-cols-[1.1fr_0.9fr] gap-3 pt-4 sm:gap-6 sm:pt-5">
+          <div className="flex flex-col justify-center">
+            <p className="font-mono text-[8px] font-bold uppercase tracking-[0.2em] text-hq-red sm:text-[10px]">
+              Sandbox Ledger
+            </p>
+            <p className="mt-1 font-display text-2xl font-extrabold tracking-tight sm:text-3xl text-white">
+              ₦1,450,000
+              <span className="text-xs text-white/50 font-normal">.00</span>
+            </p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {["Balance Inquiry", "Spending Insights", "Safe Transfers"].map(
+                (action) => (
+                  <span
+                    key={action}
+                    className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-[8px] text-hq-mute"
+                  >
+                    {action}
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
+
+          <div className="relative flex flex-col justify-center rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-xs">
+            <p className="font-mono text-[8px] font-semibold text-hq-red uppercase tracking-wider">
+              Conversational Prompt
+            </p>
+            <p className="mt-1 font-medium text-white/90 text-[11px] leading-snug">
+              "Send ₦20,000 to Sarah for design work"
+            </p>
+            <motion.div
+              initial={{ opacity: 0.8 }}
+              animate={
+                shouldReduceMotion ? undefined : { opacity: [0.8, 1, 0.8] }
+              }
+              transition={{ duration: 2, repeat: Infinity }}
+              className="mt-3 flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1.5 font-mono text-[9px] text-emerald-300"
+            >
+              <span>Tool Call Verified</span>
+              <span>✓ Paystack</span>
+            </motion.div>
           </div>
         </div>
       </div>

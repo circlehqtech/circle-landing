@@ -10,6 +10,7 @@ import {
   LockKeyholeIcon,
   MicIcon,
   SparklesIcon,
+  WalletIcon,
 } from "lucide-react";
 import {
   ProductAccessDialog,
@@ -36,6 +37,16 @@ const PRODUCTS = [
     description:
       "A secure, role-based workspace for managing client portfolios, collections, approvals, and estate delivery across a property business.",
     icon: Building2Icon,
+  },
+  {
+    id: "circle-pay",
+    number: "03",
+    category: "FinTech AI · Payments",
+    name: "CirclePay AI",
+    headline: "Your money, one conversation away.",
+    description:
+      "A conversational financial assistant that checks balances, tracks spending insights, manages beneficiaries, and handles safe money transfers.",
+    icon: WalletIcon,
   },
 ] as const;
 
@@ -115,8 +126,8 @@ export function AllSolutionsPage() {
               transition={{ delay: 0.2 }}
               className="mt-6 max-w-2xl text-lg leading-relaxed text-hq-mute"
             >
-              Explore live systems built by Circle HQ — designed around the people,
-              workflows, and decisions inside real businesses.
+              Explore live systems built by Circle HQ — designed around the
+              people, workflows, and decisions inside real businesses.
             </motion.p>
           </div>
         </div>
@@ -134,7 +145,8 @@ export function AllSolutionsPage() {
               Products Built by Circle HQ
             </h2>
             <p className="mt-2 text-hq-mute text-base max-w-xl">
-              Live operational systems designed and deployed for real business environments.
+              Live operational systems designed and deployed for real business
+              environments.
             </p>
           </div>
 
@@ -183,7 +195,7 @@ export function AllSolutionsPage() {
                       type="button"
                       onClick={() => setSelectedProduct(product)}
                       aria-label={"Request access to explore " + product.name}
-                      className="mt-8 flex min-h-12 w-full items-center justify-between border-t border-hq-line pt-5 text-sm font-semibold text-white transition-colors hover:text-hq-red focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hq-red"
+                      className="mt-8 flex min-h-12 w-full items-center justify-between border-t border-hq-line pt-5 text-sm font-semibold text-white transition-colors hover:text-hq-red focus-visible:rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hq-red cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
                         <span className="h-px w-5 bg-hq-red transition-all duration-300 group-hover:w-8" />
@@ -210,7 +222,8 @@ export function AllSolutionsPage() {
               Systems We Architect
             </h2>
             <p className="mt-2 text-hq-mute text-base max-w-xl">
-              We investigate your business, identify where friction lies, and build custom solution architectures to eliminate it.
+              We investigate your business, identify where friction lies, and
+              build custom solution architectures to eliminate it.
             </p>
           </div>
 
@@ -258,7 +271,8 @@ export function AllSolutionsPage() {
                 Ready to build smart systems for your team?
               </h2>
               <p className="mt-4 text-hq-mute text-base sm:text-lg leading-relaxed">
-                Tell us where your operational drag is, and we will architect a custom system for your business.
+                Tell us where your operational drag is, and we will architect a
+                custom system for your business.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                 <MagneticButton
@@ -347,6 +361,67 @@ function ProductPreview({ type }: { type: ProductId }) {
     );
   }
 
+  if (type === "circle-pay") {
+    return (
+      <div
+        aria-hidden="true"
+        className="relative aspect-[16/10] overflow-hidden border-b border-hq-line bg-[#0c0d12] p-4 text-white sm:p-6"
+      >
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <span className="flex items-center gap-2 font-display text-sm font-extrabold">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-hq-red text-white">
+              <WalletIcon size={11} />
+            </span>
+            <span>
+              <span className="text-hq-red">CirclePay</span> AI
+            </span>
+          </span>
+          <span className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-widest text-emerald-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Financial Agent
+          </span>
+        </div>
+
+        <div className="grid h-[calc(100%-2.25rem)] grid-cols-[1.1fr_0.9fr] gap-3 pt-4 sm:gap-6 sm:pt-5">
+          <div className="flex flex-col justify-center">
+            <p className="font-mono text-[8px] font-bold uppercase tracking-[0.2em] text-hq-red sm:text-[10px]">
+              Sandbox Account
+            </p>
+            <p className="mt-1 font-display text-2xl font-extrabold tracking-tight sm:text-3xl text-white">
+              ₦1,450,000
+              <span className="text-xs text-white/50 font-normal">.00</span>
+            </p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {["Balance Inquiry", "Spending Insights", "Safe Transfers"].map(
+                (action) => (
+                  <span
+                    key={action}
+                    className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-[8px] text-hq-mute"
+                  >
+                    {action}
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
+
+          <div className="relative flex flex-col justify-center rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-xs">
+            <p className="font-mono text-[8px] font-semibold text-hq-red uppercase tracking-wider">
+              Conversational Prompt
+            </p>
+            <p className="mt-1 font-medium text-white/90 text-[11px] leading-snug">
+              "Send ₦20,000 to Sarah for design work"
+            </p>
+            <div className="mt-3 flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1.5 font-mono text-[9px] text-emerald-300">
+              <span>Tool Call Verified</span>
+              <span>✓ Paystack</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       aria-hidden="true"
@@ -375,17 +450,21 @@ function ProductPreview({ type }: { type: ProductId }) {
             Role-Based Access
           </p>
           <div className="relative mt-4 grid grid-cols-2 gap-2">
-            {["Executive", "Accounts", "Projects", "Relations"].map((role, index) => (
-              <span
-                key={role}
-                className="flex items-center gap-2 rounded-lg border border-black/10 bg-white p-2 shadow-sm"
-              >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-black/5 font-mono text-[8px] font-bold">
-                  0{index + 1}
+            {["Executive", "Accounts", "Projects", "Relations"].map(
+              (role, index) => (
+                <span
+                  key={role}
+                  className="flex items-center gap-2 rounded-lg border border-black/10 bg-white p-2 shadow-sm"
+                >
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-black/5 font-mono text-[8px] font-bold">
+                    0{index + 1}
+                  </span>
+                  <span className="truncate text-[8px] font-semibold">
+                    {role}
+                  </span>
                 </span>
-                <span className="truncate text-[8px] font-semibold">{role}</span>
-              </span>
-            ))}
+              ),
+            )}
           </div>
         </div>
       </div>

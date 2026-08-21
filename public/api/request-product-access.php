@@ -169,6 +169,10 @@ $products = [
     'name' => 'Circle HQ Props',
     'url' => 'https://pms.circlehqcompany.com/',
   ],
+  'circle-pay' => [
+    'name' => 'CirclePay AI',
+    'url' => 'https://pay.circlehqcompany.com/',
+  ],
 ];
 
 $productId = clean_text($payload['product_id'] ?? null, 40);

@@ -12,7 +12,7 @@ import {
 import { requestProductAccess } from "../../services/emailService";
 
 export type ProductAccessProduct = {
-  id: "restaurant-ai" | "circle-props";
+  id: "restaurant-ai" | "circle-props" | "circle-pay";
   name: string;
   headline: string;
 };

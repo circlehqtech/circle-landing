@@ -17,7 +17,7 @@ type SendReadinessEmailResult = {
 };
 
 export type ProductAccessPayload = {
-  product_id: "restaurant-ai" | "circle-props";
+  product_id: "restaurant-ai" | "circle-props" | "circle-pay";
   user_name: string;
   user_email: string;
   user_phone?: string;
